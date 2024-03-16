@@ -6,10 +6,10 @@ void printArray(std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array);
 std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position);
 
 int main() {
-    std::vector<std::shared_ptr<ChessPiece>> pieces;
-    ChessBoard board;
+    std::vector<std::shared_ptr<ChessPiece>> pieces; //Array containing all chess pieces.
+    ChessBoard board; //The chessboard.
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++) { //Add pawns to the board.
         ChessPiece pawnW("PAW", ChessPiece::WHITE); //Pawn
         pieces.push_back(addChessPiece(board, pawnW, {6, i}));
 
@@ -22,6 +22,7 @@ int main() {
     return 0;
 }
 
+//Add a chess piece (object) to a chessboard.
 std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position) {
     if (!verifyPosition(position)) {
         std::cout << "Error! addChessPiece() expected coordinate lower than or equal to 8." << std::endl;
