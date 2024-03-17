@@ -43,3 +43,26 @@ $ git fetch origin
 
 $ git pull origin main
 ```
+
+### Getting SFML graphics to work 
+
+Install SFML to compile 
+https://www.sfml-dev.org/download/sfml/2.6.1/
+
+Compile Instructions: 
+
+Linux GCC:
+
+1) g++ -c main.cpp robotics.cpp 
+2) g++ main.o robotics.o -lsfml-graphics -lsfml-window -lsfml-system
+3) ./a.out 
+
+
+CMake: 
+1) mkdir build && cd build 
+2) cmake .. 
+Make sure that the exectuable is build/source-code/S2_Robotics. It needs to be near the Textures folder to run properly
+
+
+Piece texture from: 
+https://opengameart.org/content/chess-pieces-and-board-squares
