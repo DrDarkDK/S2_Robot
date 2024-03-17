@@ -18,7 +18,6 @@ int main() {
         pieces.push_back(addChessPiece(board, pawnB, {1, i}));
     }
 
-    //This will give an error!
     printArray(board.getGrid()); //Output the chessboard to the terminal.
 
     return 0;
