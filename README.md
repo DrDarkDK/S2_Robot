@@ -32,14 +32,30 @@ $ git commit -m "Your commit message here."
 
 $ git push origin main
 ```
-Now you have commited and pushed your update, so it's available to all others in the repository.
+Now you have committed and pushed your update, so it's available to all others in the repository.
 
 ### How to pull updates using GIT
 Pulling updates is relatively simple. Simply use these two lines, and you're done.
-The "fetch" part will syncronize and see if there are any changes in the repository, compared to what you have on your PC.
+The "fetch" part will synchronize and see if there are any changes in the repository, compared to what you have on your PC.
 
 ```
 $ git fetch origin
 
 $ git pull origin main
+
+## Known issues
+### G++
+G++ has some compiler differences compared to some other compilers, which will result in the code not working.
+Therefore it's recommended that you use something like Clang++ instead, which can run the code.
+To install Clang there are a couple of things you have to do.
+1) Install Clang.
 ```
+$ sudo apt update
+
+$ sudo apt install Clang
+
+$ clang++ --version
+```
+
+After doing this you have to tell your compiler to use Clang instead of G++. How you do this depends on which IDE (Aka. editor) you use to code in.
+For Visual Studio Code, you just need to copy the contents of [tasks.json]([URL_to_File](https://github.com/DrDarkDK/S2_Robot/blob/main/.vscode/tasks.json)https://github.com/DrDarkDK/S2_Robot/blob/main/.vscode/tasks.json) into your own file.
