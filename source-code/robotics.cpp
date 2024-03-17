@@ -39,7 +39,7 @@ std::shared_ptr<ChessPiece> ChessBoard::getPosition(std::vector<int> position) {
     if (!verifyPosition(position)) {
         std::cout << "Error! getPosition() expected coordinate lower than or equal to 8.";
     }
-        return grid[position[0]][position[1]];
+    return grid[position[0]][position[1]];
 }
 
 void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::vector<int> position) {
@@ -67,6 +67,3 @@ void ChessBoard::wipePosition(std::vector<int> position) {
     }
 }
 
-std::vector<std::vector<std::shared_ptr<ChessPiece>>> ChessBoard::getGrid() {
-    return this->grid;
-}
