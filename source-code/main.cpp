@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "robotics.h"
 
 void printArray(std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array);

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "robotics.h"
 
 bool verifyPosition(std::vector<int> position) {

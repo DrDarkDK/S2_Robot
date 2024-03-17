@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 bool verifyPosition(std::vector<int> position);
 
