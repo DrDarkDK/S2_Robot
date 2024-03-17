@@ -67,3 +67,32 @@ void ChessBoard::wipePosition(std::vector<int> position) {
     }
 }
 
+
+
+//Textures for the pieces 
+
+//Sends back erro if the sprite for the piece can't be found
+sf::Texture PieceTexture::loadTexture(std::string str){
+    sf::Texture tmp;
+    if (!tmp.loadFromFile(str))
+        std::cout << "Could not find sprite\n";
+    return tmp;
+}
+
+//Initialize black pieces 
+sf::Texture PieceTexture::blackKing = PieceTexture::loadTexture("Assets/b_king.png");
+sf::Texture PieceTexture::blackQueen = PieceTexture::loadTexture("Assets/b_queen.png");
+sf::Texture PieceTexture::blackRook = PieceTexture::loadTexture("Assets/b_rook.png");
+sf::Texture PieceTexture::blackKnight = PieceTexture::loadTexture("Assets/b_knight.png");
+sf::Texture PieceTexture::blackBishop = PieceTexture::loadTexture("Assets/b_bishop.png");
+sf::Texture PieceTexture::blackPawn = PieceTexture::loadTexture("Assets/b_pawn.png");
+
+//Initialize white pieces
+
+sf::Texture PieceTexture::whiteKing = PieceTexture::loadTexture("Assets/w_king.png");
+sf::Texture PieceTexture::whiteQueen = PieceTexture::loadTexture("Assets/w_queen.png");
+sf::Texture PieceTexture::whiteRook = PieceTexture::loadTexture("Assets/w_rook.png");
+sf::Texture PieceTexture::whiteKnight = PieceTexture::loadTexture("Assets/w_knight.png");
+sf::Texture PieceTexture::whiteBishop = PieceTexture::loadTexture("Assets/w_bishop.png");
+sf::Texture PieceTexture::blackPawn = PieceTexture::loadTexture("Assets/w_pawn.png");
+
