@@ -1,9 +1,9 @@
 # S2_Robot
 
 ## Table of Contents
-- [How to compile the project](##how-to-compile-the-project)
-- [GIT](##git)
-- [Known Issues](##known-issues)
+- [How to compile the project](#how-to-compile-the-project)
+- [GIT](#git)
+- [Known Issues](#known-issues)
 
 ## How to compile the project
 Open the project in your terminal. Make sure you have the correct directory opened.
