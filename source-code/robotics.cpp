@@ -11,6 +11,10 @@ bool verifyPosition(std::vector<int> position) {
     return false;
 }
 
+
+// --- CHESSPIECE CLASS ---
+
+
 // Constructor implementation
 ChessPiece::ChessPiece(std::string type, Color color) : _type(type), _color(color), _position(2, -1) {
 
@@ -34,6 +38,10 @@ std::vector<int> ChessPiece::getPosition() const {
 void ChessPiece::setPosition(std::vector<int> position) {
     _position = position;
 }
+
+
+// --- CHESSBOARD CLASS ---
+
 
 std::shared_ptr<ChessPiece> ChessBoard::getPosition(std::vector<int> position) {
     if (!verifyPosition(position)) {
@@ -68,8 +76,8 @@ void ChessBoard::wipePosition(std::vector<int> position) {
 }
 
 
+// --- PIECETEXTURE CLASS ---
 
-//Textures for the pieces 
 
 //Sends back erro if the sprite for the piece can't be found
 sf::Texture PieceTexture::loadTexture(std::string str){
@@ -94,5 +102,5 @@ sf::Texture PieceTexture::whiteQueen = PieceTexture::loadTexture("Assets/w_queen
 sf::Texture PieceTexture::whiteRook = PieceTexture::loadTexture("Assets/w_rook.png");
 sf::Texture PieceTexture::whiteKnight = PieceTexture::loadTexture("Assets/w_knight.png");
 sf::Texture PieceTexture::whiteBishop = PieceTexture::loadTexture("Assets/w_bishop.png");
-sf::Texture PieceTexture::blackPawn = PieceTexture::loadTexture("Assets/w_pawn.png");
+sf::Texture PieceTexture::whitePawn = PieceTexture::loadTexture("Assets/w_pawn.png");
 
