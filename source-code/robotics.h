@@ -57,7 +57,7 @@ class ChessBoard {
         void wipePosition(std::vector<int> position);
 
         //Return the nested array containing the grid.
-        std::vector<std::vector<std::shared_ptr<ChessPiece>>> ChessBoard::getGrid() {
+        std::vector<std::vector<std::shared_ptr<ChessPiece>>> getGrid() {
             return grid;
         }
 
