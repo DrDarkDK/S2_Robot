@@ -43,7 +43,7 @@ std::shared_ptr<ChessPiece> ChessBoard::getPosition(std::vector<int> position) {
     }
 }
 
-void ChessBoard::placePiece(std::shared_ptr<ChessPiece>& chessPiece, std::vector<int> position) {
+void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::vector<int> position) {
     if (verifyPosition(chessPiece->getPosition())) {
         this->wipePosition(chessPiece->getPosition()); //Wipe old position.
     }

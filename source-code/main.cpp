@@ -3,7 +3,7 @@
 #include <memory>
 #include "robotics.h"
 
-void printArray(std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array);
+void printArray(const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array);
 std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position);
 
 int main() {
@@ -18,7 +18,8 @@ int main() {
         pieces.push_back(addChessPiece(board, pawnB, {1, i}));
     }
 
-    printArray(board.getGrid()); //Output the chessboard to the terminal.
+    //This will give an error!
+    //printArray(board.getGrid()); //Output the chessboard to the terminal.
 
     return 0;
 }
@@ -34,7 +35,7 @@ std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, 
 }
 
 //Debugging code: outputs the chessboard, if given "board.getGrid()" as a parameter.
-void printArray(std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array) {
+void printArray(const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array) {
     for (const auto& row : array) {
         for (const auto& elem : row) {
             if (elem != nullptr) {

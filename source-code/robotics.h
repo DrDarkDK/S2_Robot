@@ -49,7 +49,7 @@ class ChessBoard {
         std::shared_ptr<ChessPiece> getPosition(std::vector<int> position);
 
         //Place a piece somewhere on the board grid.
-        void placePiece(std::shared_ptr<ChessPiece>& chessPiece, std::vector<int> position);
+        void placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::vector<int> position);
         //Move the piece at position "fromPos" to position "toPos".
         void movePiece(std::vector<int> fromPos, std::vector<int> toPos);
 
@@ -57,9 +57,12 @@ class ChessBoard {
         void wipePosition(std::vector<int> position);
 
         //Return the nested array containing the grid.
-        std::vector<std::vector<std::shared_ptr<ChessPiece>>> getGrid() {
+        const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& getGrid() {
             return grid;
         };
+
+
+
 
     private:
         std::vector<std::vector<std::shared_ptr<ChessPiece>>> grid; //A nested array containing the board grid.
