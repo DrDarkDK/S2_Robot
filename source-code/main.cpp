@@ -19,7 +19,7 @@ int main() {
     }
 
     //This will give an error!
-    //printArray(board.getGrid()); //Output the chessboard to the terminal.
+    printArray(board.getGrid()); //Output the chessboard to the terminal.
 
     return 0;
 }
