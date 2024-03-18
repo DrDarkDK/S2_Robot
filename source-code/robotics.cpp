@@ -3,7 +3,6 @@
 #include "robotics.h"
 #include "visuals.h"
 
-/*
 bool verifyPosition(std::vector<int> position) {
     if (position[0] < 8 && position[1] < 8) {
         if (position[0] >= 0 && position[1] >= 0) {
@@ -77,5 +76,3 @@ void ChessBoard::wipePosition(std::vector<int> position) {
         std::cout << "Error! wipePosition() expected coordinate lower than or equal to 8.";
     }
 }
-
-*/

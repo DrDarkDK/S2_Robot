@@ -7,7 +7,6 @@
 #include <vector>
 #include <memory>
 
-/*
 bool verifyPosition(std::vector<int> position);
 
 class ChessPiece {
@@ -67,6 +66,6 @@ class ChessBoard {
     private:
         std::vector<std::vector<std::shared_ptr<ChessPiece>>> grid; //A nested array containing the board grid.
 };
-*/
+
 
 #endif // ROBOTICS_H
