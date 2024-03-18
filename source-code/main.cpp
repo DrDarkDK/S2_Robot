@@ -8,18 +8,34 @@
 
 void initializeTextures();
 void printArray(const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array);
-std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position);
+std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position, sf::Texture texture);
 float calculateScaleFactor(const sf::Texture& texture, int squareSize);
-void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize);
+void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>> pieces);
+std::vector<float> coordsToPosition(std::vector<float> position);
 
 int main() {
     initializeTextures();
 
+    //André
+    std::vector<std::shared_ptr<ChessPiece>> pieces; //Array containing all chess pieces.
+    ChessBoard board; //The chessboard.
+
+    for (int i = 0; i < 8; i++) { //Add pawns to the board.
+        ChessPiece pawnW("PAW", ChessPiece::WHITE); //Pawn
+        //pieces.push_back(addChessPiece(board, pawnW, {6, i}, PieceTexture::whitePawn));
+
+        ChessPiece pawnB("PAW", ChessPiece::BLACK); //Pawn
+        pieces.push_back(addChessPiece(board, pawnB, {1, i}, PieceTexture::blackPawn));
+    }
+
+    printArray(board.getGrid()); //Output the chessboard to the terminal.
+
+    //Casper
     sf::RenderWindow window(sf::VideoMode(800, 800), "Chess Board");
 
     int squareSize = window.getSize().x / 8;
     std::vector<sf::Sprite> pieceSprites;
-    initializePieces(pieceSprites, squareSize);
+    initializePieces(pieceSprites, squareSize, pieces);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -52,31 +68,9 @@ int main() {
     return 0;
 }
 
-// ------
-
-/*
-
-int main() {
-    std::vector<std::shared_ptr<ChessPiece>> pieces; //Array containing all chess pieces.
-    ChessBoard board; //The chessboard.
-
-    for (int i = 0; i < 8; i++) { //Add pawns to the board.
-        ChessPiece pawnW("PAW", ChessPiece::WHITE); //Pawn
-        pieces.push_back(addChessPiece(board, pawnW, {6, i}));
-
-        ChessPiece pawnB("PAW", ChessPiece::BLACK); //Pawn
-        pieces.push_back(addChessPiece(board, pawnB, {1, i}));
-    }
-
-    printArray(board.getGrid()); //Output the chessboard to the terminal.
-
-    return 0;
-}
-
-*/
 
 //Add a chess piece (object) to a chessboard.
-std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position) {
+std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position, sf::Texture texture) {
     if (!verifyPosition(position)) {
         std::cout << "Error! addChessPiece() expected coordinate lower than or equal to 8." << std::endl;
     }
@@ -108,7 +102,7 @@ float calculateScaleFactor(const sf::Texture& texture, int squareSize) {
 }
 
 // Function to initialize chess piece sprites and their positions
-void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize) {
+void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>> pieces) {
     // Calculate scale factors based on the first texture loaded
     float scale = 0.5;
 
@@ -125,19 +119,26 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize) {
         &PieceTexture::whiteKnight, &PieceTexture::whiteRook
     };
 
+    //NOTES: The below for-loop is WIP to being converted into a mix between the two major updates. Currently, black pawns can be spawned in with a position decided by the ChessPiece class.
+    //Other than that, this is still being worked on. Current problem: getting the textures from ChessPiece class instead of the above vectors... (tip: it's difficult).
+    //Once the below for-loop is finished, it should be able to handle both black and white pieces at once, without the need for a second for-loop.
+
     // Initialize and place black pieces
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < pieces.size(); ++i) {
+        std::vector<float> positionP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, squareSize / 2.0f});
+        std::vector<float> positionNP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (.5f + float(pieces[i]->getPosition()[0])) * squareSize});
         // Black non-pawn pieces
-        sprites.emplace_back(*blackTextures[i]);
+
+        sprites.emplace_back(*blackTextures[(i < 8 ? i : 7)]); //Temporary solution since pieces can have a greater size than the texture vector, causing potential exceptions.
         sprites.back().setScale(scale, scale);
-        sf::Vector2f centeredPosition(i * squareSize + squareSize / 2.0f, squareSize / 2.0f);
+        sf::Vector2f centeredPosition(positionP[0], positionP[1]);
         sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
         sprites.back().setPosition(centeredPosition);
 
         // Black pawns
         sprites.emplace_back(PieceTexture::blackPawn);
         sprites.back().setScale(scale, scale);
-        centeredPosition = sf::Vector2f(i * squareSize + squareSize / 2.0f, 1.5f * squareSize);
+        centeredPosition = sf::Vector2f(positionNP[0], positionNP[1]);
         sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
         sprites.back().setPosition(centeredPosition);
     }
@@ -158,4 +159,11 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize) {
         sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
         sprites.back().setPosition(centeredPosition);
     }
+}
+
+std::vector<float> coordsToPosition(std::vector<float> position) {
+    float x = position[0]+2;
+    float y = position[1]+1.5;
+
+    return {x, y};
 }

@@ -37,6 +37,14 @@ std::vector<int> ChessPiece::getPosition() const {
     return _position;
 }
 
+sf::Texture ChessPiece::getTexture() const {
+    return _texture;
+}
+
+void ChessPiece::setTexture(sf::Texture texture) {
+    _texture = texture;
+}
+
 void ChessPiece::setPosition(std::vector<int> position) {
     _position = position;
 }
