@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <SFML/Graphics.hpp> 
+#include "unitTests.h"
 #include "robotics.h"
 #include "visuals.h"
 
@@ -14,6 +15,7 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
 std::vector<float> coordsToPosition(std::vector<float> position);
 
 int main() {
+    performTests(true);
     initializeTextures();
 
     //André
@@ -28,7 +30,7 @@ int main() {
         pieces.push_back(addChessPiece(board, pawnB, {1, i}, PieceTexture::blackPawn));
     }
 
-    printArray(board.getGrid()); //Output the chessboard to the terminal.
+    //printArray(board.getGrid()); //Output the chessboard to the terminal.
 
     //Casper
     sf::RenderWindow window(sf::VideoMode(800, 800), "Chess Board");
