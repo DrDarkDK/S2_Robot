@@ -94,5 +94,8 @@ $ clang++ --version
 After doing this you have to tell your compiler to use Clang instead of G++. How you do this depends on which IDE (Aka. editor) you use to code in.
 For Visual Studio Code, you just need to copy the contents of [tasks.json]([URL_to_File](https://github.com/DrDarkDK/S2_Robot/blob/main/.vscode/tasks.json)https://github.com/DrDarkDK/S2_Robot/blob/main/.vscode/tasks.json) into your own file.
 
-
+### Build Directory
+The directory you build from should always be `../S2_Robot/`, to avoid exceptions. Not compiling from this directory WILL give errors.
+On Ubuntu, you can use the command `cd` to decide where you execute commands from. For example if you're in `../S2_Robot/source-code`, then `cd ..` get get you back out to the main directory.
+Not being in the right directory will mean that asset files can't be located correctly.
 
