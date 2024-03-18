@@ -2,6 +2,7 @@
 #include <memory>
 #include "robotics.h"
 
+/*
 bool verifyPosition(std::vector<int> position) {
     if (position[0] < 8 && position[1] < 8) {
         if (position[0] >= 0 && position[1] >= 0) {
@@ -13,6 +14,7 @@ bool verifyPosition(std::vector<int> position) {
 
 
 // --- CHESSPIECE CLASS ---
+
 
 
 // Constructor implementation
@@ -75,32 +77,46 @@ void ChessBoard::wipePosition(std::vector<int> position) {
     }
 }
 
+*/
 
 // --- PIECETEXTURE CLASS ---
 
+// Definitions of static textures
+sf::Texture PieceTexture::blackKing;
+sf::Texture PieceTexture::blackQueen;
+sf::Texture PieceTexture::blackRook;
+sf::Texture PieceTexture::blackKnight;
+sf::Texture PieceTexture::blackBishop;
+sf::Texture PieceTexture::blackPawn;
 
-//Sends back erro if the sprite for the piece can't be found
-sf::Texture PieceTexture::loadTexture(std::string str){
-    sf::Texture tmp;
-    if (!tmp.loadFromFile(str))
-        std::cout << "Could not find sprite\n";
-    return tmp;
+sf::Texture PieceTexture::whiteKing;
+sf::Texture PieceTexture::whiteQueen;
+sf::Texture PieceTexture::whiteRook;
+sf::Texture PieceTexture::whiteKnight;
+sf::Texture PieceTexture::whiteBishop;
+sf::Texture PieceTexture::whitePawn;
+
+sf::Texture PieceTexture::loadTexture(const std::string& path) {
+    sf::Texture texture;
+    if (!texture.loadFromFile(path)) {
+        std::cerr << "Could not load texture from " << path << std::endl;
+        exit(EXIT_FAILURE); // Exit if we cannot load the texture
+    }
+    return texture;
 }
 
-//Initialize black pieces 
-sf::Texture PieceTexture::blackKing = PieceTexture::loadTexture("Assets/b_king.png");
-sf::Texture PieceTexture::blackQueen = PieceTexture::loadTexture("Assets/b_queen.png");
-sf::Texture PieceTexture::blackRook = PieceTexture::loadTexture("Assets/b_rook.png");
-sf::Texture PieceTexture::blackKnight = PieceTexture::loadTexture("Assets/b_knight.png");
-sf::Texture PieceTexture::blackBishop = PieceTexture::loadTexture("Assets/b_bishop.png");
-sf::Texture PieceTexture::blackPawn = PieceTexture::loadTexture("Assets/b_pawn.png");
+void initializeTextures() {
+    PieceTexture::blackKing = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/b_king.png");
+    PieceTexture::blackQueen = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/b_queen.png");
+    PieceTexture::blackRook = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/b_rook.png");
+    PieceTexture::blackKnight = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/b_knight.png");
+    PieceTexture::blackBishop = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/b_bishop.png");
+    PieceTexture::blackPawn = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/b_pawn.png");
 
-//Initialize white pieces
-
-sf::Texture PieceTexture::whiteKing = PieceTexture::loadTexture("Assets/w_king.png");
-sf::Texture PieceTexture::whiteQueen = PieceTexture::loadTexture("Assets/w_queen.png");
-sf::Texture PieceTexture::whiteRook = PieceTexture::loadTexture("Assets/w_rook.png");
-sf::Texture PieceTexture::whiteKnight = PieceTexture::loadTexture("Assets/w_knight.png");
-sf::Texture PieceTexture::whiteBishop = PieceTexture::loadTexture("Assets/w_bishop.png");
-sf::Texture PieceTexture::whitePawn = PieceTexture::loadTexture("Assets/w_pawn.png");
-
+    PieceTexture::whiteKing = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/w_king.png");
+    PieceTexture::whiteQueen = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/w_queen.png");
+    PieceTexture::whiteRook = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/w_rook.png");
+    PieceTexture::whiteKnight = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/w_knight.png");
+    PieceTexture::whiteBishop = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/w_bishop.png");
+    PieceTexture::whitePawn = PieceTexture::loadTexture("/home/ghost/Desktop/S2.pusher/S2_Robot/source-code/Assets/w_pawn.png");
+}
