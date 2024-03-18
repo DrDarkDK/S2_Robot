@@ -106,17 +106,17 @@ sf::Texture PieceTexture::loadTexture(const std::string& path) {
 }
 
 void initializeTextures() {
-    PieceTexture::blackKing = PieceTexture::loadTexture("../Assets/b_king.png");
-    PieceTexture::blackQueen = PieceTexture::loadTexture("../Assets/b_queen.png");
-    PieceTexture::blackRook = PieceTexture::loadTexture("../Assets/b_rook.png");
-    PieceTexture::blackKnight = PieceTexture::loadTexture("../Assets/b_knight.png");
-    PieceTexture::blackBishop = PieceTexture::loadTexture("../Assets/b_bishop.png");
-    PieceTexture::blackPawn = PieceTexture::loadTexture("../Assets/b_pawn.png");
+    PieceTexture::blackKing = PieceTexture::loadTexture("source-code/Assets/b_king.png");
+    PieceTexture::blackQueen = PieceTexture::loadTexture("source-code/Assets/b_queen.png");
+    PieceTexture::blackRook = PieceTexture::loadTexture("source-code/Assets/b_rook.png");
+    PieceTexture::blackKnight = PieceTexture::loadTexture("source-code/Assets/b_knight.png");
+    PieceTexture::blackBishop = PieceTexture::loadTexture("source-code/Assets/b_bishop.png");
+    PieceTexture::blackPawn = PieceTexture::loadTexture("source-code/Assets/b_pawn.png");
 
-    PieceTexture::whiteKing = PieceTexture::loadTexture("../Assets/w_king.png");
-    PieceTexture::whiteQueen = PieceTexture::loadTexture("../Assets/w_queen.png");
-    PieceTexture::whiteRook = PieceTexture::loadTexture("../Assets/w_rook.png");
-    PieceTexture::whiteKnight = PieceTexture::loadTexture("../Assets/w_knight.png");
-    PieceTexture::whiteBishop = PieceTexture::loadTexture("../Assets/w_bishop.png");
-    PieceTexture::whitePawn = PieceTexture::loadTexture("../Assets/w_pawn.png");
+    PieceTexture::whiteKing = PieceTexture::loadTexture("source-code/Assets/w_king.png");
+    PieceTexture::whiteQueen = PieceTexture::loadTexture("source-code/Assets/w_queen.png");
+    PieceTexture::whiteRook = PieceTexture::loadTexture("source-code/Assets/w_rook.png");
+    PieceTexture::whiteKnight = PieceTexture::loadTexture("source-code/Assets/w_knight.png");
+    PieceTexture::whiteBishop = PieceTexture::loadTexture("source-code/Assets/w_bishop.png");
+    PieceTexture::whitePawn = PieceTexture::loadTexture("source-code/Assets/w_pawn.png");
 }

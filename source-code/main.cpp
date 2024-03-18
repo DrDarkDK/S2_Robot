@@ -154,4 +154,3 @@ void printArray(const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& arr
     }
 }
 */ 
-
