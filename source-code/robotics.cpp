@@ -107,8 +107,8 @@ sf::Texture PieceTexture::loadTexture(const std::string& path) {
 
 void initializeTextures() {
     PieceTexture::blackKing = PieceTexture::loadTexture("../Assets/b_king.png");
-    PieceTexture::blackQueen = PieceTexture::loadTexture("/Assets/b_queen.png");
-    PieceTexture::blackRook = PieceTexture::loadTexture("/Assets/b_rook.png");
+    PieceTexture::blackQueen = PieceTexture::loadTexture("../Assets/b_queen.png");
+    PieceTexture::blackRook = PieceTexture::loadTexture("../Assets/b_rook.png");
     PieceTexture::blackKnight = PieceTexture::loadTexture("../Assets/b_knight.png");
     PieceTexture::blackBishop = PieceTexture::loadTexture("../Assets/b_bishop.png");
     PieceTexture::blackPawn = PieceTexture::loadTexture("../Assets/b_pawn.png");
