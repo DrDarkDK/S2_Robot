@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 
+/*
 bool verifyPosition(std::vector<int> position);
 
 class ChessPiece {
@@ -66,33 +67,31 @@ class ChessBoard {
     private:
         std::vector<std::vector<std::shared_ptr<ChessPiece>>> grid; //A nested array containing the board grid.
 };
+*/
 
 //piece texture class 
 
-class PieceTexture{
-public: 
 
-//Static shares the texture across all instaces of the class
-    static sf::Texture blackKing; 
+class PieceTexture {
+public:
+    static sf::Texture blackKing;
     static sf::Texture blackQueen;
     static sf::Texture blackRook;
-    static sf::Texture blackKnight; 
+    static sf::Texture blackKnight;
     static sf::Texture blackBishop;
-    static sf::Texture blackPawn; 
+    static sf::Texture blackPawn;
 
     static sf::Texture whiteKing;
     static sf::Texture whiteQueen;
     static sf::Texture whiteRook;
     static sf::Texture whiteKnight;
     static sf::Texture whiteBishop;
-    static sf::Texture whitePawn; 
+    static sf::Texture whitePawn;
 
-//Loads the location of the pieces
-    static sf::Texture loadTexture(std::string str);
-
+    static sf::Texture loadTexture(const std::string& path);
 };
 
+// Function to initialize all textures
+void initializeTextures();
 
-
-
-#endif
+#endif // ROBOTICS_H
