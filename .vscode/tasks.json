@@ -7,8 +7,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}/source-code/main.cpp",
-                "${workspaceFolder}/source-code/robotics.cpp",
+                "${workspaceFolder}/source-code/*.cpp",
                 "-o",
                 "${workspaceFolder}/build/program",
                 "-lsfml-graphics",

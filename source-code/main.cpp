@@ -1,8 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-#include "robotics.h"
 #include <SFML/Graphics.hpp> 
+#include "robotics.h"
+#include "visuals.h"
 
 void initializeTextures();
 
