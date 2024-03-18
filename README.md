@@ -96,6 +96,3 @@ For Visual Studio Code, you just need to copy the contents of [tasks.json]([URL_
 
 
 
-18/03/2024
-
-Du vågner nok før jeg gør og ser det jeg har pushed, skal nok få skrevet mere forklaring til det men er kogt lige nu fordi at jeg valgte at semi starte over med en dumpster fire af den kode jeg sad og fyrede af før så valgte bare at få styr på at vi havde et bræt med brikkerne på som så ikke kan rykkes endnu, men det skal vi nok komme til. Dog er placeringen et Assets et problem siden den kører på min path til dem lige i øjeblikket, der skal gøres et eller andet så den kører fra folderen man befinder sig i og så bare kan tilgå assets ved den tidligere kommando Assets/{brik navn}. Vil bare sove så du må nyde det here værk som nok også er en semi dumpster fire. 
