@@ -105,7 +105,7 @@ sf::Texture PieceTexture::loadTexture(const std::string& path) {
     return texture;
 }
 
-void initializeTextures() {
+void initializeTextures() { //This will ONLY work if your terminal directory is in the S2_Robot path. It can't be in a sub-directory.
     PieceTexture::blackKing = PieceTexture::loadTexture("source-code/Assets/b_king.png");
     PieceTexture::blackQueen = PieceTexture::loadTexture("source-code/Assets/b_queen.png");
     PieceTexture::blackRook = PieceTexture::loadTexture("source-code/Assets/b_rook.png");
