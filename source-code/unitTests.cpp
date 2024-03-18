@@ -11,22 +11,22 @@ void performTests(bool debug) {
 
     try {
     if (!verifyPosition({0,0})) {
-        if (debug) {std::cout << "Unit Fail (1): Failed" << std::endl;}
+        if (debug) {std::cout << "Unit Test (1): Failed" << std::endl;}
         results[0]++;
     }; results[1]++;
 
     if (verifyPosition({999,999})) {
-        if (debug) {std::cout << "Unit Fail (2): Failed" << std::endl;}
+        if (debug) {std::cout << "Unit Test (2): Failed" << std::endl;}
         results[0]++;
     }; results[1]++;
 
     if (verifyPosition({-999,-999})) {
-        if (debug) {std::cout << "Unit Fail (3): Failed" << std::endl;}
+        if (debug) {std::cout << "Unit Test (3): Failed" << std::endl;}
         results[0]++;
     }; results[1]++;
 
     if (!verifyPosition({2,4})) {
-        if (debug) {std::cout << "Unit Fail (4): Failed" << std::endl;}
+        if (debug) {std::cout << "Unit Test (4): Failed" << std::endl;}
         results[0]++;
     }; results[1]++;
 
@@ -37,35 +37,35 @@ void performTests(bool debug) {
         testBoard.placePiece(testPtr, {0,0});
         
         if (testBoard.getPosition({0,0})->getType() != "BLACK") {
-            if (debug) {std::cout << "Unit Fail (5): Failed" << std::endl;}
+            if (debug) {std::cout << "Unit Test (5): Failed" << std::endl;}
             results[0]++;
         }; results[1]++;
 
         if (testBoard.getPosition({0,0})->getPosition()[1] != 0) {
-            if (debug) {std::cout << "Unit Fail (6): Failed" << std::endl;}
+            if (debug) {std::cout << "Unit Test (6): Failed" << std::endl;}
             results[0]++;
         }; results[1]++;
 
         testBoard.getPosition({0,0})->setPosition({1,1});
         if (testBoard.getPosition({0,0})->getPosition()[0] != 1) {
-            if (debug) {std::cout << "Unit Fail (7): Failed" << std::endl;}
+            if (debug) {std::cout << "Unit Test (7): Failed" << std::endl;}
             results[0]++;
         }; results[1]++;
 
         testBoard.movePiece({0,0}, {1,1});
         if (testBoard.getPosition({1,1})->getType() != testPtr->getType()) {
-            if (debug) {std::cout << "Unit Fail (8): Failed" << std::endl;}
+            if (debug) {std::cout << "Unit Test (8): Failed" << std::endl;}
             results[0]++;
         }; results[1]++;
 
         testBoard.wipePosition({1,1});
         if (testBoard.getPosition({1,1}) != nullptr) {
-            if (debug) {std::cout << "Unit Fail (9): Failed" << std::endl;}
+            if (debug) {std::cout << "Unit Test (9): Failed" << std::endl;}
             results[0]++;
         }; results[1]++;
 
         if (testBoard.getPosition({-999,-999}) != NULL) {
-            if (debug) {std::cout << "Unit Fail (10): Failed" << std::endl;}
+            if (debug) {std::cout << "Unit Test (10): Failed" << std::endl;}
             results[0]++;
         }; results[1]++;
     }
@@ -77,7 +77,7 @@ void performTests(bool debug) {
     bool timeTooLong = false;
 
     if (elapsed.count() >= 50) {
-            if (debug) {std::cout << "Unit Fail (11): Failed" << std::endl;}
+            if (debug) {std::cout << "Unit Test (11): Failed" << std::endl;}
             timeTooLong = true;
             results[0]++;
         }; results[1]++;
