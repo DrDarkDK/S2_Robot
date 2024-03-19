@@ -58,6 +58,7 @@ class ChessBoard {
 
         //Place a piece somewhere on the board grid.
         void placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::vector<int> position);
+        
         //Move the piece at position "fromPos" to position "toPos".
         void movePiece(std::vector<int> fromPos, std::vector<int> toPos);
 

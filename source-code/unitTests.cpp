@@ -2,7 +2,7 @@
 #include <vector>
 #include <chrono>
 #include "unitTests.h"
-#include "robotics.h"
+#include "functionality.h"
 #include "visuals.h"
 
 void performTests(bool debug) {
@@ -36,7 +36,7 @@ void performTests(bool debug) {
         std::shared_ptr<ChessPiece> testPtr = std::make_shared<ChessPiece>(std::move(testPawn));
         testBoard.placePiece(testPtr, {0,0});
         
-        if (testBoard.getPosition({0,0})->getType() != "BLACK") {
+        if (testBoard.getPosition({0,0})->getType() == "BLACK") {
             if (debug) {std::cout << "Unit Test (5): Failed" << std::endl;}
             results[0]++;
         }; results[1]++;
@@ -109,4 +109,5 @@ void displayResult(std::vector<int> results, std::chrono::milliseconds elapsed, 
 
     std::cout << resultAnswer << std::endl;
     std::cout << "\033[33mTime Elapsed: " << (timeFail ? "\033[31m" : "\033[0m")  << elapsed.count() << " milliseconds" << (timeFail ? " (time limit exceeded)" : "") << std::endl;
+    std::cout << "\033[0m";
 }

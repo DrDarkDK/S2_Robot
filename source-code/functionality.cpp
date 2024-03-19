@@ -1,6 +1,6 @@
 #include <iostream>
 #include <memory>
-#include "robotics.h"
+#include "functionality.h"
 #include "visuals.h"
 
 bool verifyPosition(std::vector<int> position) {
