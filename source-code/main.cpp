@@ -14,8 +14,8 @@ void initializeTextures();
 
 
 int main() {
-    UnitTest GlobalTest1("Global Test (1)", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
-    GlobalTest1.startTests();
+    UnitTest GlobalTest("Global Test (1)", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
+    GlobalTest.startTests();
 
     initializeTextures(); 
 
@@ -55,21 +55,19 @@ int main() {
 
     printGrid(board.getGrid()); //Output the chessboard to the terminal.
 
-    GlobalTest1.finalizeTests(); //ALL non-visual code should be above this line, to have the loading-time included in the test.
+    GlobalTest.finalizeTests(); //ALL non-visual code should be above this line, to have the loading-time included in the test.
 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Chess Board");
 
     int squareSize = window.getSize().x / 8;
     std::vector<sf::Sprite> pieceSprites;
     initializePieces(pieceSprites, squareSize, pieces);
-    UnitTest GlobalTest2("Global Test (2)", false, 5, true); //UnitTest(name, performTests, µsTarget, debug)
 
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-                GlobalTest2.startTests();
             }
         }
         
@@ -91,7 +89,6 @@ int main() {
             window.draw(sprite);
         }
 
-        GlobalTest2.finalizeTests();
         window.display();
     }
 
