@@ -2,7 +2,7 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: clang++ build SFML project",
+            "label": "C/C++: Compile the 'S2_Robot' project using Clang++",
             "command": "/usr/bin/clang++",
             "args": [
                 "-fdiagnostics-color=always",

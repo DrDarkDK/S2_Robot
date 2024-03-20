@@ -6,7 +6,7 @@
 #include "visuals.h"
 
 //Will handle the creation of a new chesspiece and add it to the "pieces" array.
-void createPiece(std::vector<std::shared_ptr<ChessPiece>>& pieces, std::string type, bool color, std::vector<int> position, sf::Texture& texture);
+void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board, std::vector<std::shared_ptr<ChessPiece>>& pieces);
 
 std::vector<float> coordsToPosition(std::vector<float> position);
 
@@ -35,6 +35,6 @@ void printGrid(const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& arra
 float calculateScaleFactor(const sf::Texture& texture, int squareSize);
 
 // Function to initialize chess piece sprites and their positions
-void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>> pieces);
+void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>>& pieces);
 
 #endif

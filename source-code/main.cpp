@@ -3,12 +3,12 @@
 #include <memory>
 #include <SFML/Graphics.hpp> 
 #include <cxxabi.h>
+#include <string>
 #include <cctype>
 #include "general.h"
 #include "unitTests.h"
 #include "functionality.h"
 #include "visuals.h"
-
 
 void initializeTextures();
 
@@ -21,19 +21,14 @@ int main() {
     ChessBoard board; //The chessboard.
 
     for (int i = 0; i < 8; i++) { //Add pawns to the board.
-        ChessPiece pawnW("PAW", ChessPiece::WHITE, PieceTexture::whitePawn); //Pawn
+        createPiece("Pawn", true, PieceTexture::whitePawn, {6, i}, board, pieces);
         //pieces.push_back(addChessPiece(board, pawnW, {6, i}));
 
-        ChessPiece pawnB("PAW", ChessPiece::BLACK, PieceTexture::blackPawn); //Pawn
-        pieces.push_back(addChessPiece(board, pawnB, {1, i}));
+        createPiece("Pawn", false, PieceTexture::blackPawn, {1, i}, board, pieces);
     }
 
-    ChessPiece rookB1("ROO", ChessPiece::BLACK, PieceTexture::blackRook); //Rook
-    pieces.push_back(addChessPiece(board, rookB1, {0, 0}));
-
-    ChessPiece rookB2("ROO", ChessPiece::BLACK, PieceTexture::blackRook); //Rook
-    pieces.push_back(addChessPiece(board, rookB2, {0, 7}));
-    //pieces.push_back(addChessPiece(board, rookB, {0, 7}, PieceTexture::blackRook));
+    createPiece("Rook", false, PieceTexture::blackRook, {0, 0}, board, pieces);
+    createPiece("Rook", false, PieceTexture::blackRook, {0, 7}, board, pieces);
 
     board.movePiece({0,7}, {3,7});
 

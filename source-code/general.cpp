@@ -3,6 +3,22 @@
 #include "functionality.h"
 #include "visuals.h"
 
+//createPiece(type, isWhite, texture, position, &board, &pieces)
+void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board, std::vector<std::shared_ptr<ChessPiece>>& pieces) {
+    enum Color {
+            WHITE,
+            BLACK
+        };
+    
+    std::string tag;
+    const char *charray = type.c_str(); //Char <-> Array = Charray.
+    for (int i = 0; i < type.size() && i < 3; i++) {
+        tag += toupper(charray[i]);
+    }
+
+    ChessPiece piece(tag, (isWhite ? ChessPiece::WHITE : ChessPiece::BLACK), texture);
+    pieces.push_back(addChessPiece(board, piece, position));
+} 
 
 std::vector<float> coordsToPosition(std::vector<float> position) {
     float x = position[0]+2;
@@ -40,7 +56,7 @@ float calculateScaleFactor(const sf::Texture& texture, int squareSize) {
     return scale; // Assuming the texture is square
 }
 
-void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>> pieces) {
+void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>>& pieces) {
     // Calculate scale factors based on the first texture loaded
     float scale = 0.5;
 
@@ -57,16 +73,15 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
         &PieceTexture::whiteKnight, &PieceTexture::whiteRook
     };
 
-    //NOTES: The below for-loop is WIP to being converted into a mix between the two major updates. Currently, black pawns can be spawned in with a position decided by the ChessPiece class.
-    //Other than that, this is still being worked on. Current problem: getting the textures from ChessPiece class instead of the above vectors... (tip: it's difficult).
-    //Once the below for-loop is finished, it should be able to handle both black and white pieces at once, without the need for a second for-loop.
-
-    std::cout << getTypeName(PieceTexture::blackPawn) << std::endl;
-
     // Initialize and place black pieces
     for (int i = 0; i < pieces.size(); ++i) {
-        std::vector<float> positionP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, squareSize / 2.0f});
-        std::vector<float> positionNP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (.5f + float(pieces[i]->getPosition()[0])) * squareSize});
+        std::vector<float> calcPosition;
+        if (pieces[i]->getType() == "PAW") {
+                calcPosition = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (.5f + float(pieces[i]->getPosition()[0])) * squareSize});
+            } else {
+                calcPosition = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (float(pieces[i]->getPosition()[1]) * squareSize) / 2.0f});
+                std::cout << calcPosition[0] << " | " << calcPosition[1] << std::endl;
+        } 
 
         //std::cout << getTypeName(pieces[i]->getTexture()) << " | " << getTypeName(*blackTextures[(i < 8 ? i : 7)]) << std::endl;
 
@@ -80,7 +95,7 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
         // Black pawns
         sprites.emplace_back(pieces[i]->getTexture());
         sprites.back().setScale(scale, scale);
-        sf::Vector2f centeredPosition = sf::Vector2f(positionNP[0], positionNP[1]);
+        sf::Vector2f centeredPosition = sf::Vector2f(calcPosition[0], calcPosition[1]);
         sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
         sprites.back().setPosition(centeredPosition);
     }
