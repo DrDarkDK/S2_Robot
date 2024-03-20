@@ -12,11 +12,13 @@
 
 void initializeTextures();
 
+
 int main() {
-    performTests(true);
+    UnitTest GlobalTest1("Global Test (1)", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
+    GlobalTest1.startTests();
+
     initializeTextures(); 
 
-    //André
     std::vector<std::shared_ptr<ChessPiece>> pieces; //Array containing all chess pieces.
     ChessBoard board; //The chessboard.
 
@@ -53,20 +55,24 @@ int main() {
 
     printGrid(board.getGrid()); //Output the chessboard to the terminal.
 
-    //Casper
+    GlobalTest1.finalizeTests(); //ALL non-visual code should be above this line, to have the loading-time included in the test.
+
     sf::RenderWindow window(sf::VideoMode(800, 800), "Chess Board");
 
     int squareSize = window.getSize().x / 8;
     std::vector<sf::Sprite> pieceSprites;
     initializePieces(pieceSprites, squareSize, pieces);
+    UnitTest GlobalTest2("Global Test (2)", false, 5, true); //UnitTest(name, performTests, µsTarget, debug)
 
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                GlobalTest2.startTests();
             }
         }
+        
 
         window.clear();
 
@@ -85,6 +91,7 @@ int main() {
             window.draw(sprite);
         }
 
+        GlobalTest2.finalizeTests();
         window.display();
     }
 
