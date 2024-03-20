@@ -20,14 +20,21 @@ int main() {
     ChessBoard board; //The chessboard.
 
     for (int i = 0; i < 8; i++) { //Add pawns to the board.
-        ChessPiece pawnW("PAW", ChessPiece::WHITE); //Pawn
+        ChessPiece pawnW("PAW", ChessPiece::WHITE, PieceTexture::blackPawn); //Pawn
         //pieces.push_back(addChessPiece(board, pawnW, {6, i}, PieceTexture::whitePawn));
 
-        ChessPiece pawnB("PAW", ChessPiece::BLACK); //Pawn
+        ChessPiece pawnB("PAW", ChessPiece::BLACK, PieceTexture::blackPawn); //Pawn
         pieces.push_back(addChessPiece(board, pawnB, {1, i}, PieceTexture::blackPawn));
     }
 
-    //printGrid(board.getGrid()); //Output the chessboard to the terminal.
+    ChessPiece rookB("ROO", ChessPiece::BLACK, PieceTexture::blackRook); //Rook
+    pieces.push_back(addChessPiece(board, rookB, {0, 0}, PieceTexture::blackRook));
+    //pieces.push_back(addChessPiece(board, rookB, {0, 7}, PieceTexture::blackRook));
+
+    
+
+
+    printGrid(board.getGrid()); //Output the chessboard to the terminal.
 
     //Casper
     sf::RenderWindow window(sf::VideoMode(800, 800), "Chess Board");

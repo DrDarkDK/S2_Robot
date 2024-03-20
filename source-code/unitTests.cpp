@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include <string>
+#include "general.h"
 #include "unitTests.h"
 #include "functionality.h"
 #include "visuals.h"
@@ -69,6 +71,16 @@ void performTests(bool debug) {
             results[0]++;
         }; results[1]++;
     }
+
+    if (coordsToPosition({0.0, 0.0})[0] == 0.0) {
+            if (debug) {std::cout << "Unit Test (12): Failed" << std::endl;}
+            results[0]++;
+        }; results[1]++;
+
+    if (coordsToPosition({-999.0, -999.0})[0] >= 0) {
+            if (debug) {std::cout << "Unit Test (13): Failed" << std::endl;}
+            results[0]++;
+        }; results[1]++;
 
     initializeTextures();
 

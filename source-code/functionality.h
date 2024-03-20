@@ -19,7 +19,7 @@ class ChessPiece {
         };
 
         // Constructor
-        ChessPiece(std::string type, Color color);
+        ChessPiece(std::string type, Color color, PieceTexture texture);
 
         // Method to display the chess piece's information
         void displayInfo() const;
@@ -30,9 +30,9 @@ class ChessPiece {
         //Outputs the position of the chess piece, in an array with a length of 2. [row, column]
         std::vector<int> getPosition() const;
 
-        sf::Texture getTexture() const;
+        PieceTexture getTexture() const;
 
-        void setTexture(sf::Texture texture);
+        void setTexture(PieceTexture texture);
 
         //Sets the position of the pawn. This has no effect on the chessboard; only the piece!
         void setPosition(std::vector<int> position);
@@ -41,7 +41,7 @@ class ChessPiece {
         std::string _type; // Type of the chess piece, e.g., "Pawn", "Rook", etc.
         Color _color;      // Color of the chess piece
         std::vector<int> _position; //Position in the chessboard.
-        sf::Texture _texture;
+        PieceTexture _texture;
 };
 
 class ChessBoard {

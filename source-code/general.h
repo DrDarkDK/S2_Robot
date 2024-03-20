@@ -1,6 +1,7 @@
 #ifndef GENERAL_H
 #define GENERAL_H
 
+#include <cxxabi.h>
 #include "functionality.h"
 #include "visuals.h"
 

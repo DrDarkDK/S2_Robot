@@ -63,19 +63,19 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
         std::vector<float> positionP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, squareSize / 2.0f});
         std::vector<float> positionNP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (.5f + float(pieces[i]->getPosition()[0])) * squareSize});
 
-        std::cout << getTypeName(pieces[i]) << " | " << getTypeName(*blackTextures[(i < 8 ? i : 7)]) << std::endl;
+        std::cout << getTypeName(pieces[i]->getTexture()) << " | " << getTypeName(*blackTextures[(i < 8 ? i : 7)]) << std::endl;
 
         // Black non-pawn pieces
-        sprites.emplace_back(*blackTextures[(i < 8 ? i : 7)]); //Temporary solution since pieces can have a greater size than the texture vector, causing potential exceptions.
-        sprites.back().setScale(scale, scale);
-        sf::Vector2f centeredPosition(positionP[0], positionP[1]);
-        sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
-        sprites.back().setPosition(centeredPosition);
+        //sprites.emplace_back(pieces[i]->getTexture()); //Temporary solution since pieces can have a greater size than the texture vector, causing potential exceptions.
+        //sprites.back().setScale(scale, scale);
+        //sf::Vector2f centeredPosition(positionP[0], positionP[1]);
+        //sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
+        //sprites.back().setPosition(centeredPosition);
 
         // Black pawns
-        sprites.emplace_back(PieceTexture::blackPawn);
+        sprites.emplace_back(pieces[i]->getTexture());
         sprites.back().setScale(scale, scale);
-        centeredPosition = sf::Vector2f(positionNP[0], positionNP[1]);
+        sf::Vector2f centeredPosition = sf::Vector2f(positionNP[0], positionNP[1]);
         sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
         sprites.back().setPosition(centeredPosition);
     }
