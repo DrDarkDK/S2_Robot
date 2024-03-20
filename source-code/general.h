@@ -5,10 +5,13 @@
 #include "functionality.h"
 #include "visuals.h"
 
+//Will handle the creation of a new chesspiece and add it to the "pieces" array.
+void createPiece(std::vector<std::shared_ptr<ChessPiece>>& pieces, std::string type, bool color, std::vector<int> position, sf::Texture& texture);
+
 std::vector<float> coordsToPosition(std::vector<float> position);
 
 //Add a chess piece (object) to a chessboard.
-std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position, sf::Texture texture);
+std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position);
 
 // Template function to get the type name of any variable as a string
 template<typename T>

@@ -33,7 +33,7 @@ void performTests(bool debug) {
     }; results[1]++;
 
     {
-        ChessPiece testPawn("PAW", ChessPiece::BLACK); //Pawn
+        ChessPiece testPawn("PAW", ChessPiece::BLACK, PieceTexture::blackPawn); //Pawn
         ChessBoard testBoard;
         std::shared_ptr<ChessPiece> testPtr = std::make_shared<ChessPiece>(std::move(testPawn));
         testBoard.placePiece(testPtr, {0,0});

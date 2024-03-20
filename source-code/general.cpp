@@ -1,5 +1,8 @@
 #include <cxxabi.h>
 #include "general.h"
+#include "functionality.h"
+#include "visuals.h"
+
 
 std::vector<float> coordsToPosition(std::vector<float> position) {
     float x = position[0]+2;
@@ -8,7 +11,7 @@ std::vector<float> coordsToPosition(std::vector<float> position) {
     return {x, y};
 }
 
-std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position, sf::Texture texture) {
+std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position) {
     if (!verifyPosition(position)) {
         std::cout << "Error! addChessPiece() expected coordinate lower than or equal to 8." << std::endl;
     }
@@ -58,12 +61,14 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
     //Other than that, this is still being worked on. Current problem: getting the textures from ChessPiece class instead of the above vectors... (tip: it's difficult).
     //Once the below for-loop is finished, it should be able to handle both black and white pieces at once, without the need for a second for-loop.
 
+    std::cout << getTypeName(PieceTexture::blackPawn) << std::endl;
+
     // Initialize and place black pieces
     for (int i = 0; i < pieces.size(); ++i) {
         std::vector<float> positionP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, squareSize / 2.0f});
         std::vector<float> positionNP = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (.5f + float(pieces[i]->getPosition()[0])) * squareSize});
 
-        std::cout << getTypeName(pieces[i]->getTexture()) << " | " << getTypeName(*blackTextures[(i < 8 ? i : 7)]) << std::endl;
+        //std::cout << getTypeName(pieces[i]->getTexture()) << " | " << getTypeName(*blackTextures[(i < 8 ? i : 7)]) << std::endl;
 
         // Black non-pawn pieces
         //sprites.emplace_back(pieces[i]->getTexture()); //Temporary solution since pieces can have a greater size than the texture vector, causing potential exceptions.

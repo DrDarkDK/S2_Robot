@@ -18,7 +18,7 @@ bool verifyPosition(std::vector<int> position) {
 
 
 // Constructor implementation
-ChessPiece::ChessPiece(std::string type, Color color, PieceTexture texture) : _type(type), _color(color), _texture(texture), _position(2, -1) {
+ChessPiece::ChessPiece(std::string type, Color color, sf::Texture& texture) : _type(type), _color(color), _texture(texture), _position(2, -1) {
 
 }
 
@@ -37,11 +37,11 @@ std::vector<int> ChessPiece::getPosition() const {
     return _position;
 }
 
-PieceTexture ChessPiece::getTexture() const {
+sf::Texture& ChessPiece::getTexture() const {
     return _texture;
 }
 
-void ChessPiece::setTexture(PieceTexture texture) {
+void ChessPiece::setTexture(sf::Texture& texture) {
     _texture = texture;
 }
 
