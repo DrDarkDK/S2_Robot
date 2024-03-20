@@ -65,7 +65,10 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
         return;
     }
 
-    if (verifyPosition(chessPiece->getPosition())) {
+    if (this->getPosition(position) != nullptr) { //Warn incase of overlap. Overlap should only be used to intentionally capture other pieces.
+        std::cout << "Overlap by position (" << position[0] << ", " << position[1] << ")" << std::endl;
+    };
+    if (verifyPosition(chessPiece->getPosition())) { //If the chesspiece exists already...
         this->wipePosition(chessPiece->getPosition()); //Wipe old position.
     }
     

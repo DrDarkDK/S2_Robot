@@ -29,8 +29,24 @@ int main() {
 
     createPiece("Rook", false, PieceTexture::blackRook, {0, 0}, board, pieces);
     createPiece("Rook", false, PieceTexture::blackRook, {0, 7}, board, pieces);
+    createPiece("Knights", false, PieceTexture::blackKnight, {0, 1}, board, pieces);
+    createPiece("Knights", false, PieceTexture::blackKnight, {0, 6}, board, pieces);
+    createPiece("Bishop", false, PieceTexture::blackBishop, {0, 2}, board, pieces);
+    createPiece("Bishop", false, PieceTexture::blackBishop, {0, 5}, board, pieces);
+    createPiece("Queen", false, PieceTexture::blackQueen, {0, 3}, board, pieces);
+    createPiece("King", false, PieceTexture::blackKing, {0, 4}, board, pieces);
 
-    board.movePiece({0,7}, {3,7});
+
+    createPiece("Rook", true, PieceTexture::whiteRook, {7, 0}, board, pieces);
+    createPiece("Rook", true, PieceTexture::whiteRook, {7, 7}, board, pieces);
+    createPiece("Knights", true, PieceTexture::whiteKnight, {7, 1}, board, pieces);
+    createPiece("Knights", true, PieceTexture::whiteKnight, {7, 6}, board, pieces);
+    createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 2}, board, pieces);
+    createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 5}, board, pieces);
+    createPiece("Queen", false, PieceTexture::whiteQueen, {7, 3}, board, pieces);
+    createPiece("King", true, PieceTexture::whiteKing, {7, 4}, board, pieces);
+
+    //board.movePiece({0,7}, {3,7});
 
     
 

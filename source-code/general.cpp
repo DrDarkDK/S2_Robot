@@ -76,21 +76,9 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
     // Initialize and place black pieces
     for (int i = 0; i < pieces.size(); ++i) {
         std::vector<float> calcPosition;
-        if (pieces[i]->getType() == "PAW") {
-                calcPosition = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (.5f + float(pieces[i]->getPosition()[0])) * squareSize});
-            } else {
-                calcPosition = coordsToPosition({pieces[i]->getPosition()[1] * squareSize + squareSize / 2.0f, (float(pieces[i]->getPosition()[1]) * squareSize) / 2.0f});
-                std::cout << calcPosition[0] << " | " << calcPosition[1] << std::endl;
-        } 
-
-        //std::cout << getTypeName(pieces[i]->getTexture()) << " | " << getTypeName(*blackTextures[(i < 8 ? i : 7)]) << std::endl;
-
-        // Black non-pawn pieces
-        //sprites.emplace_back(pieces[i]->getTexture()); //Temporary solution since pieces can have a greater size than the texture vector, causing potential exceptions.
-        //sprites.back().setScale(scale, scale);
-        //sf::Vector2f centeredPosition(positionP[0], positionP[1]);
-        //sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
-        //sprites.back().setPosition(centeredPosition);
+        std::vector<int> oldPos = pieces[i]->getPosition();
+        
+        calcPosition = coordsToPosition({oldPos[1] * squareSize + squareSize / 2.1f, (.5f + float(oldPos[0])) * squareSize});
 
         // Black pawns
         sprites.emplace_back(pieces[i]->getTexture());
@@ -101,7 +89,7 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
     }
 
     // Initialize and place white pieces
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8 && false; ++i) {
         // White non-pawn pieces
         sprites.emplace_back(*whiteTextures[i]);
         sprites.back().setScale(scale, scale);

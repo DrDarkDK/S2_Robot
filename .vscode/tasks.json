@@ -14,6 +14,9 @@
                 "-lsfml-window",
                 "-lsfml-system"
             ],
+            "presentation": {
+                "clear": true
+            },
             "options": {
                 "cwd": "${workspaceFolder}/source-code"
             },
