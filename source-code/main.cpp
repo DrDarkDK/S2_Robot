@@ -5,6 +5,7 @@
 #include <cxxabi.h>
 #include <string>
 #include <cctype>
+#include <thread>
 #include "general.h"
 #include "unitTests.h"
 #include "functionality.h"
@@ -14,7 +15,7 @@ void initializeTextures();
 
 
 int main() {
-    UnitTest GlobalTest("Global Test (1)", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
+    UnitTest GlobalTest("Global Test", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
     GlobalTest.startTests();
 
     initializeTextures(); 
@@ -46,30 +47,64 @@ int main() {
     createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 2}, board, pieces);
     createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 5}, board, pieces);
     createPiece("Queen", false, PieceTexture::whiteQueen, {7, 3}, board, pieces);
-    createPiece("King", true, PieceTexture::whiteKing, {7, 4}, board, pieces);
+    createPiece("King", true, PieceTexture::whiteKing, {7, 4}, board, pieces);    
 
-    //board.movePiece({0,7}, {3,7});
-
-    
-
-
-    printGrid(board.getGrid()); //Output the chessboard to the terminal.
+    //printGrid(board.getGrid()); //Output the chessboard to the terminal.
 
     GlobalTest.finalizeTests(); //ALL non-visual code should be above this line, to have the loading-time included in the test.
 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Chess Board");
 
     int squareSize = window.getSize().x / 8;
-    std::vector<sf::Sprite> pieceSprites;
-    initializePieces(pieceSprites, squareSize, pieces);
+
+    auto startTime = std::chrono::steady_clock::now();
+    int phase = 0;
 
     while (window.isOpen()) {
+        std::vector<sf::Sprite> pieceSprites;
+        initializePieces(pieceSprites, squareSize, pieces);
+
+        auto currentTime = std::chrono::steady_clock::now();
+        std::chrono::duration<double> elapsed = currentTime - startTime;
+
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
         }
+
+        if (phase == 0 && elapsed.count() >= 3.0) {
+            // After 3 seconds, execute the first action
+            board.movePiece({1, 1}, {2, 1});
+            startTime = std::chrono::steady_clock::now(); // Reset start time for the next phase
+            phase++; // Move to the next phase
+        } else if (phase == 1 && elapsed.count() >= 3.0) {
+            // Another 3 seconds later, execute the second action
+            board.movePiece({6, 5}, {5, 5});
+            phase++; // Move to the final phase or end condition
+        } else if (phase == 2 && elapsed.count() >= 6.0) {
+            // Another 3 seconds later, execute the second action
+            board.movePiece({1, 3}, {2, 3});
+            phase++; // Move to the final phase or end condition
+        } else if (phase == 3 && elapsed.count() >= 9.0) {
+            // Another 3 seconds later, execute the second action
+            board.movePiece({5, 5}, {4, 5});
+            phase++; // Move to the final phase or end condition
+        } else if (false && phase == 4 && elapsed.count() >= 12.0) {
+            // Another 3 seconds later, execute the second action
+            board.movePiece({3, 0}, {5, 3});
+            phase++; // Move to the final phase or end condition
+        }
+         else if (false && phase == 5 && elapsed.count() >= 15.0) {
+            // Another 3 seconds later, execute the second action
+            board.movePiece({4, 5}, {5, 3});
+            phase++; // Move to the final phase or end condition
+        }
+
+        
+            //board.movePiece({0, 0}, {3, 0});
+            //board.movePiece({0, 7}, {3, 7});
         
 
         window.clear();

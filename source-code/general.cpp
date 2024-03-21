@@ -87,21 +87,4 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
         sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
         sprites.back().setPosition(centeredPosition);
     }
-
-    // Initialize and place white pieces
-    for (int i = 0; i < 8 && false; ++i) {
-        // White non-pawn pieces
-        sprites.emplace_back(*whiteTextures[i]);
-        sprites.back().setScale(scale, scale);
-        sf::Vector2f centeredPosition(i * squareSize + squareSize / 2.0f, 7.5f * squareSize);
-        sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
-        sprites.back().setPosition(centeredPosition);
-
-        // White pawns
-        sprites.emplace_back(PieceTexture::whitePawn);
-        sprites.back().setScale(scale, scale);
-        centeredPosition = sf::Vector2f(i * squareSize + squareSize / 2.0f, 6.5f * squareSize);
-        sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);
-        sprites.back().setPosition(centeredPosition);
-    }
 }

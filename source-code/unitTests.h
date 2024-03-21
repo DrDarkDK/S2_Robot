@@ -14,9 +14,6 @@ class UnitTest {
         //End the test by performing the real tests if neccessary, and end the time counter.
         void finalizeTests();
 
-        //Output the result of the test to the logs.
-        void displayResult(std::chrono::milliseconds timeElapsed);
-
         //Return the amount of time that the test has taken.
         int getTimeElapsed();
     private:
@@ -29,6 +26,9 @@ class UnitTest {
         int _totalTests;
         std::vector<int> _failedTests;
         bool _debugMode;
+
+        //Output the result of the test to the logs.
+        void displayResult(std::chrono::milliseconds timeElapsed);
 };
 
 #endif
