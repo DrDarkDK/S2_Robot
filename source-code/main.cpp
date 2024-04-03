@@ -58,14 +58,12 @@ int main() {
     int squareSize = window.getSize().x / 8;
 
     auto startTime = std::chrono::steady_clock::now();
-    int tickCounter = 0;
 
     bool mouseHeld = false; //While the left mousebuttun is held down, this will be true.
     std::vector<int> clickTarget = {0, 0}; //The position the cursor clicks "first".
     std::vector<int> releaseTarget = {0, 0}; //The position the cursor clicks "last".
 
     while (window.isOpen()) {
-      if (tickCounter % 100000000 == 0) {
           std::vector<sf::Sprite> pieceSprites;
           initializePieces(pieceSprites, squareSize, pieces);
 
@@ -128,9 +126,6 @@ int main() {
           }
 
           window.display();
-          std::cout << tickCounter << std::endl;
-      }
-      tickCounter++;
     }
 
     return 0;
