@@ -66,7 +66,7 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
     if (!verifyPosition(position)) {
         return;
     }
-
+    std::cout << "Error might be here:" << std::endl;
     if (this->getPosition(position) != nullptr) { //Warn incase of overlap. Overlap should only be used to intentionally capture other pieces.
         std::cout << "Overlap by position (" << position[0]+1 << ", " << position[1]+1 << ")" << std::endl;
     };
@@ -81,9 +81,10 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
     std::cout << "movePiece(): (" << fromPos[0]+1 << ", " << fromPos[1]+1 << ")" << std::endl;
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
+        std::cout << "Test Start" << std::endl;
         this->placePiece(this->getPosition(fromPos), toPos);
+        std::cout << "Test Finish" << std::endl;
     } else {
-
         if (this->getPosition({fromPos[1], fromPos[0]}) != nullptr) { //Workaround. Some coordinates got inverted somewhere in the code.
             this->placePiece(this->getPosition({fromPos[1], fromPos[0]}), toPos);
         } else {

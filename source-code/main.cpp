@@ -96,8 +96,8 @@ int main() {
         if (elapsed.count() >= 0.25) { //Slow down the unnecessary parts of the code, for optimization purposes.
           if (releaseTarget[0] >= 0) {
             std::cout << "-----" << std::endl;
-            std::cout << "Click Target: (" << clickTarget[0] << ", " << clickTarget[1] << ")" << std::endl;
-            std::cout << "Release Target: (" << releaseTarget[1] << ", " << releaseTarget[0] << ")" << std::endl;
+            std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
+            std::cout << "Release Target: (" << releaseTarget[1]+1 << ", " << releaseTarget[0]+1 << ")" << std::endl;
 
             board.movePiece(clickTarget, releaseTarget);
 
