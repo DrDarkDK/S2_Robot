@@ -58,75 +58,78 @@ int main() {
     int squareSize = window.getSize().x / 8;
 
     auto startTime = std::chrono::steady_clock::now();
-    int phase = 0;
+    int tickCounter = 0;
 
     bool mouseHeld = false; //While the left mousebuttun is held down, this will be true.
     std::vector<int> clickTarget = {0, 0}; //The position the cursor clicks "first".
     std::vector<int> releaseTarget = {0, 0}; //The position the cursor clicks "last".
 
     while (window.isOpen()) {
-        std::vector<sf::Sprite> pieceSprites;
-        initializePieces(pieceSprites, squareSize, pieces);
+      if (tickCounter % 15 == 0) {
+          std::vector<sf::Sprite> pieceSprites;
+          initializePieces(pieceSprites, squareSize, pieces);
 
-        auto currentTime = std::chrono::steady_clock::now();
-        std::chrono::duration<double> elapsed = currentTime - startTime;
+          auto currentTime = std::chrono::steady_clock::now();
+          std::chrono::duration<double> elapsed = currentTime - startTime;
 
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
+          sf::Event event;
+          while (window.pollEvent(event)) {
+              if (event.type == sf::Event::Closed) {
+                  window.close();
+              }
+          }
 
-        //When the left mousebutton is clicked.
-        if (event.type == sf::Event::MouseButtonPressed && !mouseHeld) {
-          if (event.mouseButton.button == sf::Mouse::Left) {
-            mouseHeld = true;
-            std::vector<int> cursorCoords = getCursorPosition(window);
-            if (clickTarget[0] == 0) {
-              clickTarget = cursorCoords;
-            } else {
-              releaseTarget = {cursorCoords[1], cursorCoords[0]}; //Workaround. Screw debugging. 2 coordinates are switched somewhere unknown in the project.
+          //When the left mousebutton is clicked.
+          if (event.type == sf::Event::MouseButtonPressed && !mouseHeld) {
+            if (event.mouseButton.button == sf::Mouse::Left) {
+              mouseHeld = true;
+              std::vector<int> cursorCoords = getCursorPosition(window);
+              if (clickTarget[0] == 0) {
+                clickTarget = cursorCoords;
+              } else {
+                releaseTarget = {cursorCoords[1], cursorCoords[0]}; //Workaround. Screw debugging. 2 coordinates are switched somewhere unknown in the project.
+              }
             }
           }
-        }
-        if (mouseHeld && !(event.type == sf::Event::MouseButtonPressed)) { //Mouse released. Makes sure the above event is only run once per mouse being clicked.
-          mouseHeld = false;
-        }
+          if (mouseHeld && !(event.type == sf::Event::MouseButtonPressed)) { //Mouse released. Makes sure the above event is only run once per mouse being clicked.
+            mouseHeld = false;
+          }
 
-        if (releaseTarget[0] > 0) {
-          std::cout << "-----" << std::endl;
-          std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
-          std::cout << "Release Target: (" << releaseTarget[0]+1 << ", " << releaseTarget[1]+1 << ")" << std::endl;
+          if (releaseTarget[0] > 0) {
+            std::cout << "-----" << std::endl;
+            std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
+            std::cout << "Release Target: (" << releaseTarget[0]+1 << ", " << releaseTarget[1]+1 << ")" << std::endl;
 
-          board.movePiece(clickTarget, releaseTarget);
+            board.movePiece(clickTarget, releaseTarget);
 
-          clickTarget = {0, 0}; //Reset click target.
-          releaseTarget = {0, 0}; //Reset release target.
-        }
-        
-            //board.movePiece({0, 0}, {3, 0});
-            //board.movePiece({0, 7}, {3, 7});
-        
+            clickTarget = {0, 0}; //Reset click target.
+            releaseTarget = {0, 0}; //Reset release target.
+          }
+          
+              //board.movePiece({0, 0}, {3, 0});
+              //board.movePiece({0, 7}, {3, 7});
+          
 
-        window.clear();
+          window.clear();
 
-        sf::Color col1(238, 208, 159);
-        sf::Color col2(181, 136, 99);
-        for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j < 8; ++j) {
-                sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
-                square.setPosition(j * squareSize, i * squareSize);
-                square.setFillColor((i + j) % 2 == 0 ? col1 : col2);
-                window.draw(square);
-            }
-        }
+          sf::Color col1(238, 208, 159);
+          sf::Color col2(181, 136, 99);
+          for (int i = 0; i < 8; ++i) {
+              for (int j = 0; j < 8; ++j) {
+                  sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
+                  square.setPosition(j * squareSize, i * squareSize);
+                  square.setFillColor((i + j) % 2 == 0 ? col1 : col2);
+                  window.draw(square);
+              }
+          }
 
-        for (const sf::Sprite& sprite : pieceSprites) {
-            window.draw(sprite);
-        }
+          for (const sf::Sprite& sprite : pieceSprites) {
+              window.draw(sprite);
+          }
 
-        window.display();
+          window.display();
+      }
+      tickCounter++;
     }
 
     return 0;
