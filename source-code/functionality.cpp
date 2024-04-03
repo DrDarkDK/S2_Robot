@@ -46,7 +46,7 @@ void ChessPiece::setTexture(sf::Texture& texture) {
 }
 
 void ChessPiece::setPosition(std::vector<int> position) {
-    std::cout << "setPosition(): (" << position[0] << ", " << position[1] << ")" << std::endl;
+    std::cout << "setPosition(): (" << position[0]+1 << ", " << position[1]+1 << ")" << std::endl;
     _position = position;
 }
 
@@ -55,7 +55,7 @@ void ChessPiece::setPosition(std::vector<int> position) {
 
 
 std::shared_ptr<ChessPiece> ChessBoard::getPosition(std::vector<int> position) {
-    std::cout << "getPosition(): (" << position[0] << ", " << position[1] << ")" << std::endl;
+    std::cout << "getPosition(): (" << position[0]+1 << ", " << position[1]+1 << ")" << std::endl;
     if (!verifyPosition(position)) {
         return NULL;
     }
@@ -68,7 +68,7 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
     }
 
     if (this->getPosition(position) != nullptr) { //Warn incase of overlap. Overlap should only be used to intentionally capture other pieces.
-        std::cout << "Overlap by position (" << position[0] << ", " << position[1] << ")" << std::endl;
+        std::cout << "Overlap by position (" << position[0]+1 << ", " << position[1]+1 << ")" << std::endl;
     };
     if (verifyPosition(chessPiece->getPosition())) { //If the chesspiece exists already...
         this->wipePosition(chessPiece->getPosition()); //Wipe old position.
@@ -79,7 +79,7 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
 }
 
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
-    std::cout << "movePiece(): (" << fromPos[0] << ", " << fromPos[1] << ")" << std::endl;
+    std::cout << "movePiece(): (" << fromPos[0]+1 << ", " << fromPos[1]+1 << ")" << std::endl;
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
         this->placePiece(this->getPosition(fromPos), toPos);
     } else {
