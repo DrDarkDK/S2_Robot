@@ -57,18 +57,18 @@ int main() {
 
     int squareSize = window.getSize().x / 8;
 
-    auto startTime = std::chrono::steady_clock::now();
+    auto lastTimeCheck = std::chrono::steady_clock::now();
 
     bool mouseHeld = false; //While the left mousebuttun is held down, this will be true.
-    std::vector<int> clickTarget = {0, 0}; //The position the cursor clicks "first".
-    std::vector<int> releaseTarget = {0, 0}; //The position the cursor clicks "last".
+    std::vector<int> clickTarget = {-1, -1}; //The position the cursor clicks "first".
+    std::vector<int> releaseTarget = {-1, -1}; //The position the cursor clicks "last".
 
     while (window.isOpen()) {
+          auto current_time = std::chrono::steady_clock::now();
+           std::chrono::duration<double> elapsed = current_time - lastTimeCheck;
+
           std::vector<sf::Sprite> pieceSprites;
           initializePieces(pieceSprites, squareSize, pieces);
-
-          auto currentTime = std::chrono::steady_clock::now();
-          std::chrono::duration<double> elapsed = currentTime - startTime;
 
           sf::Event event;
           while (window.pollEvent(event)) {
@@ -82,8 +82,8 @@ int main() {
             if (event.mouseButton.button == sf::Mouse::Left) {
               mouseHeld = true;
               std::vector<int> cursorCoords = getCursorPosition(window);
-              if (clickTarget[0] == 0) {
-                clickTarget = cursorCoords;
+              if (clickTarget[0] == -1) {
+                clickTarget = {cursorCoords[0], cursorCoords[1]};
               } else {
                 releaseTarget = {cursorCoords[1], cursorCoords[0]}; //Workaround. Screw debugging. 2 coordinates are switched somewhere unknown in the project.
               }
@@ -93,15 +93,16 @@ int main() {
             mouseHeld = false;
           }
 
-          if (releaseTarget[0] > 0) {
+        if (elapsed.count() >= 0.25) { //Slow down the unnecessary parts of the code, for optimization purposes.
+          if (releaseTarget[0] >= 0) {
             std::cout << "-----" << std::endl;
-            std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
-            std::cout << "Release Target: (" << releaseTarget[0]+1 << ", " << releaseTarget[1]+1 << ")" << std::endl;
+            std::cout << "Click Target: (" << clickTarget[0] << ", " << clickTarget[1] << ")" << std::endl;
+            std::cout << "Release Target: (" << releaseTarget[1] << ", " << releaseTarget[0] << ")" << std::endl;
 
             board.movePiece(clickTarget, releaseTarget);
 
-            clickTarget = {0, 0}; //Reset click target.
-            releaseTarget = {0, 0}; //Reset release target.
+            clickTarget = {-1, -1}; //Reset click target.
+            releaseTarget = {-1, -1}; //Reset release target.
           }
           
               //board.movePiece({0, 0}, {3, 0});
@@ -110,13 +111,19 @@ int main() {
 
           window.clear();
 
-          sf::Color col1(238, 208, 159);
-          sf::Color col2(181, 136, 99);
+          sf::Color white(238, 208, 159);
+          sf::Color black(181, 136, 99);
+          sf::Color green(116, 163, 111);
+          sf::Color red(179, 96, 102);
           for (int i = 0; i < 8; ++i) {
               for (int j = 0; j < 8; ++j) {
                   sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
                   square.setPosition(j * squareSize, i * squareSize);
-                  square.setFillColor((i + j) % 2 == 0 ? col1 : col2);
+                  if (clickTarget[0] == j && clickTarget[1] == i) {
+                    square.setFillColor(green);
+                  } else {
+                    square.setFillColor((i + j) % 2 == 0 ? white : black);
+                  }
                   window.draw(square);
               }
           }
@@ -124,8 +131,10 @@ int main() {
           for (const sf::Sprite& sprite : pieceSprites) {
               window.draw(sprite);
           }
+          lastTimeCheck = current_time;
 
           window.display();
+        }
     }
 
     return 0;
