@@ -3,6 +3,18 @@
 #include "functionality.h"
 #include "visuals.h"
 
+std::vector<int> getCursorPosition(sf::RenderWindow &window) {
+    sf::Vector2i cursorPos = sf::Mouse::getPosition(window);
+    int clickedX = cursorPos.x / (800 / 8);
+      clickedX = clickedX > 8 ? 8 : clickedX;
+      clickedX = clickedX < 0 ? 0 : clickedX;
+    int clickedY = cursorPos.y / (800 / 8);
+      clickedY = clickedY > 8 ? 8 : clickedY;
+      clickedY = clickedY < 0 ? 0 : clickedY;
+
+      return {clickedX, clickedY};
+}
+
 //createPiece(type, isWhite, texture, position, &board, &pieces)
 void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board, std::vector<std::shared_ptr<ChessPiece>>& pieces) {
     enum Color {

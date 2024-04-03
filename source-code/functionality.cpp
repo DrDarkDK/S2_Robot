@@ -46,6 +46,7 @@ void ChessPiece::setTexture(sf::Texture& texture) {
 }
 
 void ChessPiece::setPosition(std::vector<int> position) {
+    std::cout << "setPosition(): (" << position[0] << ", " << position[1] << ")" << std::endl;
     _position = position;
 }
 
@@ -54,6 +55,7 @@ void ChessPiece::setPosition(std::vector<int> position) {
 
 
 std::shared_ptr<ChessPiece> ChessBoard::getPosition(std::vector<int> position) {
+    std::cout << "getPosition(): (" << position[0] << ", " << position[1] << ")" << std::endl;
     if (!verifyPosition(position)) {
         return NULL;
     }
@@ -77,10 +79,16 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
 }
 
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
+    std::cout << "movePiece(): (" << fromPos[0] << ", " << fromPos[1] << ")" << std::endl;
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
         this->placePiece(this->getPosition(fromPos), toPos);
     } else {
-        std::cout << "Error! movePiece expected specificed pointer, and recieved a nullptr.";
+
+        if (this->getPosition({fromPos[1], fromPos[0]}) != nullptr) { //Workaround. Some coordinates got inverted somewhere in the code.
+            this->placePiece(this->getPosition({fromPos[1], fromPos[0]}), toPos);
+        } else {
+            std::cout << "Error! movePiece expected specificed pointer, and recieved a nullptr." << std::endl;
+        }
     }
 }
 
@@ -88,6 +96,6 @@ void ChessBoard::wipePosition(std::vector<int> position) {
     if (verifyPosition(position)) {
         this->grid[position[0]][position[1]] = nullptr;
     } else {
-        std::cout << "Error! wipePosition() expected coordinate lower than or equal to 8.";
+        std::cout << "Error! wipePosition() expected coordinate lower than or equal to 8." << std::endl;
     }
 }

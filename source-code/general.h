@@ -5,6 +5,9 @@
 #include "functionality.h"
 #include "visuals.h"
 
+//Get the position (in chessboard formatting, so no more than 8x8) of the cursor compared to the window (not entire screen).
+std::vector<int> getCursorPosition(sf::RenderWindow &window);
+
 //Will handle the creation of a new chesspiece and add it to the "pieces" array.
 void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board, std::vector<std::shared_ptr<ChessPiece>>& pieces);
 

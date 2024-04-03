@@ -60,6 +60,10 @@ int main() {
     auto startTime = std::chrono::steady_clock::now();
     int phase = 0;
 
+    bool mouseHeld = false; //While the left mousebuttun is held down, this will be true.
+    std::vector<int> clickTarget = {0, 0}; //The position the cursor clicks "first".
+    std::vector<int> releaseTarget = {0, 0}; //The position the cursor clicks "last".
+
     while (window.isOpen()) {
         std::vector<sf::Sprite> pieceSprites;
         initializePieces(pieceSprites, squareSize, pieces);
@@ -74,34 +78,32 @@ int main() {
             }
         }
 
-        if (phase == 0 && elapsed.count() >= 3.0) {
-            // After 3 seconds, execute the first action
-            board.movePiece({1, 1}, {2, 1});
-            startTime = std::chrono::steady_clock::now(); // Reset start time for the next phase
-            phase++; // Move to the next phase
-        } else if (phase == 1 && elapsed.count() >= 3.0) {
-            // Another 3 seconds later, execute the second action
-            board.movePiece({6, 5}, {5, 5});
-            phase++; // Move to the final phase or end condition
-        } else if (phase == 2 && elapsed.count() >= 6.0) {
-            // Another 3 seconds later, execute the second action
-            board.movePiece({1, 3}, {2, 3});
-            phase++; // Move to the final phase or end condition
-        } else if (phase == 3 && elapsed.count() >= 9.0) {
-            // Another 3 seconds later, execute the second action
-            board.movePiece({5, 5}, {4, 5});
-            phase++; // Move to the final phase or end condition
-        } else if (false && phase == 4 && elapsed.count() >= 12.0) {
-            // Another 3 seconds later, execute the second action
-            board.movePiece({3, 0}, {5, 3});
-            phase++; // Move to the final phase or end condition
+        //When the left mousebutton is clicked.
+        if (event.type == sf::Event::MouseButtonPressed && !mouseHeld) {
+          if (event.mouseButton.button == sf::Mouse::Left) {
+            mouseHeld = true;
+            std::vector<int> cursorCoords = getCursorPosition(window);
+            if (clickTarget[0] == 0) {
+              clickTarget = cursorCoords;
+            } else {
+              releaseTarget = {cursorCoords[1], cursorCoords[0]}; //Workaround. Screw debugging. 2 coordinates are switched somewhere unknown in the project.
+            }
+          }
         }
-         else if (false && phase == 5 && elapsed.count() >= 15.0) {
-            // Another 3 seconds later, execute the second action
-            board.movePiece({4, 5}, {5, 3});
-            phase++; // Move to the final phase or end condition
+        if (mouseHeld && !(event.type == sf::Event::MouseButtonPressed)) { //Mouse released. Makes sure the above event is only run once per mouse being clicked.
+          mouseHeld = false;
         }
 
+        if (releaseTarget[0] > 0) {
+          std::cout << "-----" << std::endl;
+          std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
+          std::cout << "Release Target: (" << releaseTarget[0]+1 << ", " << releaseTarget[1]+1 << ")" << std::endl;
+
+          board.movePiece(clickTarget, releaseTarget);
+
+          clickTarget = {0, 0}; //Reset click target.
+          releaseTarget = {0, 0}; //Reset release target.
+        }
         
             //board.movePiece({0, 0}, {3, 0});
             //board.movePiece({0, 7}, {3, 7});
