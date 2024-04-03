@@ -65,7 +65,7 @@ int main() {
     std::vector<int> releaseTarget = {0, 0}; //The position the cursor clicks "last".
 
     while (window.isOpen()) {
-      if (tickCounter % 15 == 0) {
+      if (tickCounter % 100000000 == 0) {
           std::vector<sf::Sprite> pieceSprites;
           initializePieces(pieceSprites, squareSize, pieces);
 
@@ -128,6 +128,7 @@ int main() {
           }
 
           window.display();
+          std::cout << tickCounter << std::endl;
       }
       tickCounter++;
     }
