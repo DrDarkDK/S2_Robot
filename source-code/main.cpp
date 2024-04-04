@@ -99,7 +99,13 @@ int main() {
             std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
             std::cout << "Release Target: (" << releaseTarget[1]+1 << ", " << releaseTarget[0]+1 << ")" << std::endl;
 
-            board.movePiece(clickTarget, releaseTarget);
+            if (board.getPosition(releaseTarget) != nullptr) {
+              board.wipePosition(releaseTarget);
+            }
+
+            if (board.getPosition(clickTarget) != nullptr) {
+              board.movePiece(clickTarget, releaseTarget);
+            }
 
             clickTarget = {-1, -1}; //Reset click target.
             releaseTarget = {-1, -1}; //Reset release target.
