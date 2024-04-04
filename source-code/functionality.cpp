@@ -3,6 +3,7 @@
 #include "functionality.h"
 #include "visuals.h"
 
+
 bool verifyPosition(std::vector<int> position) {
     if (position[0] < 8 && position[1] < 8) {
         if (position[0] >= 0 && position[1] >= 0) {
@@ -46,7 +47,7 @@ void ChessPiece::setTexture(sf::Texture& texture) {
 }
 
 void ChessPiece::setPosition(std::vector<int> position) {
-    std::cout << "setPosition(): (" << position[0]+1 << ", " << position[1]+1 << ")" << std::endl;
+    std::cout << "setPosition(): (" << position[1]+1 << ", " << position[0]+1 << ")" << std::endl;
     _position = position;
 }
 
@@ -55,11 +56,11 @@ void ChessPiece::setPosition(std::vector<int> position) {
 
 
 std::shared_ptr<ChessPiece> ChessBoard::getPosition(std::vector<int> position) {
-    std::cout << "getPosition(): (" << position[0]+1 << ", " << position[1]+1 << ")" << std::endl;
+    std::cout << "getPosition(): (" << position[1]+1 << ", " << position[0]+1 << ")" << std::endl;
     if (!verifyPosition(position)) {
         return NULL;
     }
-    return grid[position[0]][position[1]];
+    return grid[position[1]][position[0]];
 }
 
 void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::vector<int> position) {
