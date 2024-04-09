@@ -3,19 +3,7 @@
 #include "functionality.h"
 #include "visuals.h"
 
-
-bool verifyPosition(std::vector<int> position) {
-    if (position[0] < 8 && position[1] < 8) {
-        if (position[0] >= 0 && position[1] >= 0) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
 // --- CHESSPIECE CLASS ---
-
 
 
 // Constructor implementation
@@ -47,7 +35,6 @@ void ChessPiece::setTexture(sf::Texture& texture) {
 }
 
 void ChessPiece::setPosition(std::vector<int> position) {
-    std::cout << "setPosition(): (" << position[1]+1 << ", " << position[0]+1 << ")" << std::endl;
     _position = position;
 }
 
@@ -56,7 +43,6 @@ void ChessPiece::setPosition(std::vector<int> position) {
 
 
 std::shared_ptr<ChessPiece> ChessBoard::getPosition(std::vector<int> position) {
-    std::cout << "getPosition(): (" << position[1]+1 << ", " << position[0]+1 << ")" << std::endl;
     if (!verifyPosition(position)) {
         return NULL;
     }
@@ -67,10 +53,6 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
     if (!verifyPosition(position)) {
         return;
     }
-    std::cout << "Error might be here:" << std::endl;
-    if (this->getPosition(position) != nullptr) { //Warn incase of overlap. Overlap should only be used to intentionally capture other pieces.
-        std::cout << "Overlap by position (" << position[0]+1 << ", " << position[1]+1 << ")" << std::endl;
-    };
     if (verifyPosition(chessPiece->getPosition())) { //If the chesspiece exists already...
         this->wipePosition(chessPiece->getPosition()); //Wipe old position.
     }
@@ -80,11 +62,8 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
 }
 
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
-    std::cout << "movePiece(): (" << fromPos[0]+1 << ", " << fromPos[1]+1 << ")" << std::endl;
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
-        std::cout << "Test Start" << std::endl;
         this->placePiece(this->getPosition(fromPos), toPos);
-        std::cout << "Test Finish" << std::endl;
     } else {
         if (this->getPosition({fromPos[1], fromPos[0]}) != nullptr) { //Workaround. Some coordinates got inverted somewhere in the code.
             this->placePiece(this->getPosition({fromPos[1], fromPos[0]}), toPos);

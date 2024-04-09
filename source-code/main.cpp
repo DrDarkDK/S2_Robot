@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 #include <SFML/Graphics.hpp> 
-#include <cxxabi.h>
+//#include <cxxabi.h>
 #include <string>
 #include <cctype>
 #include <thread>
@@ -47,14 +47,11 @@ int main() {
     createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 2}, board, pieces);
     createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 5}, board, pieces);
     createPiece("Queen", false, PieceTexture::whiteQueen, {7, 3}, board, pieces);
-    createPiece("King", true, PieceTexture::whiteKing, {7, 4}, board, pieces);    
-
-    //printGrid(board.getGrid()); //Output the chessboard to the terminal.
+    createPiece("King", true, PieceTexture::whiteKing, {7, 4}, board, pieces);
 
     GlobalTest.finalizeTests(); //ALL non-visual code should be above this line, to have the loading-time included in the test.
 
     sf::RenderWindow window(sf::VideoMode(800, 800), "Chess Board");
-
     int squareSize = window.getSize().x / 8;
 
     auto lastTimeCheck = std::chrono::steady_clock::now();
@@ -70,6 +67,7 @@ int main() {
           std::vector<sf::Sprite> pieceSprites;
           initializePieces(pieceSprites, squareSize, pieces);
 
+          //Check the window should be closed.
           sf::Event event;
           while (window.pollEvent(event)) {
               if (event.type == sf::Event::Closed) {
@@ -82,10 +80,10 @@ int main() {
             if (event.mouseButton.button == sf::Mouse::Left) {
               mouseHeld = true;
               std::vector<int> cursorCoords = getCursorPosition(window);
-              if (clickTarget[0] == -1) {
+              if (clickTarget[0] == -1) { //Find out where the user clicked, and if it's the first or second click.
                 clickTarget = {cursorCoords[0], cursorCoords[1]};
               } else {
-                releaseTarget = {cursorCoords[1], cursorCoords[0]}; //Workaround. Screw debugging. 2 coordinates are switched somewhere unknown in the project.
+                releaseTarget = {cursorCoords[1], cursorCoords[0]};
               }
             }
           }
@@ -94,41 +92,39 @@ int main() {
           }
 
         if (elapsed.count() >= 0.25) { //Slow down the unnecessary parts of the code, for optimization purposes.
-          if (releaseTarget[0] >= 0) {
-            std::cout << "-----" << std::endl;
-            std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
-            std::cout << "Release Target: (" << releaseTarget[1]+1 << ", " << releaseTarget[0]+1 << ")" << std::endl;
+          if (releaseTarget[0] >= 0) { //Check if a release position has been clicked.
+            //Debugging code
+            //std::cout << "Click Target: (" << clickTarget[0]+1 << ", " << clickTarget[1]+1 << ")" << std::endl;
+            //std::cout << "Release Target: (" << releaseTarget[1]+1 << ", " << releaseTarget[0]+1 << ")" << std::endl;
 
-            if (board.getPosition(releaseTarget) != nullptr) {
+            if (board.getPosition(releaseTarget) != nullptr) { //If a piece is already on the chosen position.
               board.wipePosition(releaseTarget);
             }
 
-            if (board.getPosition(clickTarget) != nullptr) {
+            if (board.getPosition(clickTarget) != nullptr && releaseTarget != clickTarget) { //Make sure the same place isn't clicked twice.
               board.movePiece(clickTarget, releaseTarget);
             }
 
             clickTarget = {-1, -1}; //Reset click target.
             releaseTarget = {-1, -1}; //Reset release target.
           }
-          
-              //board.movePiece({0, 0}, {3, 0});
-              //board.movePiece({0, 7}, {3, 7});
-          
 
           window.clear();
 
-          sf::Color white(238, 208, 159);
-          sf::Color black(181, 136, 99);
-          sf::Color green(116, 163, 111);
-          sf::Color red(179, 96, 102);
+          //Predefined colors for chessboard cells.
+          sf::Color primary_color(238, 208, 159); //White
+          sf::Color secondary_color(181, 136, 99); //Black
+          sf::Color clickTarget_color(116, 163, 111); //Green
+
+          //Draw the chessboard using a nested (meaning 2D array in this case) for-loop.
           for (int i = 0; i < 8; ++i) {
               for (int j = 0; j < 8; ++j) {
                   sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
                   square.setPosition(j * squareSize, i * squareSize);
-                  if (clickTarget[0] == j && clickTarget[1] == i) {
-                    square.setFillColor(green);
+                  if (clickTarget[0] == j && clickTarget[1] == i) { //If the current position is equal to the "clickTarget" variable.
+                    square.setFillColor(clickTarget_color);
                   } else {
-                    square.setFillColor((i + j) % 2 == 0 ? white : black);
+                    square.setFillColor((i + j) % 2 == 0 ? primary_color : secondary_color); //Which between the primary and secondary color.
                   }
                   window.draw(square);
               }

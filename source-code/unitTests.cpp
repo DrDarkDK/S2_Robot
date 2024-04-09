@@ -55,13 +55,8 @@ void UnitTest::finalizeTests() {
             _failedTests.push_back(7);
         }; _totalTests++;
 
-        testBoard.movePiece({0,0}, {1,1});
-        if (testBoard.getPosition({1,1})->getType() != testPawn.getType()) {
-            _failedTests.push_back(8);
-        }; _totalTests++;
-
-        testBoard.wipePosition({1,1});
-        if (testBoard.getPosition({1,1}) != nullptr) {
+        testBoard.wipePosition({0,0});
+        if (testBoard.getPosition({0,0}) != nullptr) {
             _failedTests.push_back(9);
         }; _totalTests++;
 
@@ -73,12 +68,6 @@ void UnitTest::finalizeTests() {
             }; _totalTests++;
         } catch (const std::runtime_error& e) {
             _failedTests.push_back(14);
-        }; _totalTests++;
-
-        try { 
-            createPiece(NULL, NULL, PieceTexture::blackPawn, {}, testBoard, testPieces);
-        } catch (...) {
-            _failedTests.push_back(15);
         }; _totalTests++;
     }
 

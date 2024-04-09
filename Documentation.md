@@ -2,14 +2,31 @@
 Please try to keep this up to date. That way no functions will get lost, as the program grows bigger.
 ``` ```
 ## Global
+
+```std::vector<int> getCursorPosition(sf::RenderWindow &window)```
+As the name suggests, this function gets the cursor's position **compared to the window**; not the full screen itself.
+The cursor's position is returned as a small vector with integers between 1 and 8, exactly as the chessboard's grid.
+
+```void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board, std::vector<std::shared_ptr<ChessPiece>>& pieces)```
+The top-lay function to handle the creation of chess pieces. It's a collection of smaller segments that together handle "everything".
+
+```std::vector<float> coordsToPosition(std::vector<float> position)```
+Will modify a set of coordinates slightly, so they are placed correctly when visualized.
+
 ```std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position)```
 This function will "create" a new chess piece, on the given board, by the given position. This is useful for creating the start layout.
 This function does NOT create the ChessPiece object. The function however accepts the ChessPiece object as a parameter, and will convert it into a pointer.
 
 After this function has been used on an object, the original object shouldn't be used anymore. Use the pointer instead. Using the original will lead to errors ( I've been there and done that...).
 
-```void printArray(std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array)```
+```void printgrid(std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array)```
 Accepts a chessboard grid as a parameter, and will visualize and print it to the terminal. That way you can see what happens to the pawn on the chessboard. Good for debugging.
+
+```float calculateScaleFactor(const sf::Texture& texture, int squareSize)```
+Finds out which size a texture (for example a pawn's image texture) should have, compared to the size of the square sizes on the chessboard.
+
+```void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>>& pieces)```
+Handles setting the textures for each piece on the chessboard, along with position of the texture (visually) and the scaling.
 
 ```bool verifyPosition(std::vector<int> position)```
 Check if a position is within the chessboard, meaning somewhere between [0, 0] and [8, 8]. If it's not, it'll return "false".

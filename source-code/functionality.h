@@ -41,7 +41,7 @@ class ChessPiece {
         std::string _type; // Type of the chess piece, e.g., "Pawn", "Rook", etc.
         Color _color;      // Color of the chess piece
         std::vector<int> _position; //Position in the chessboard.
-        sf::Texture& _texture;
+        sf::Texture& _texture; //Which image texture the piece has.
 };
 
 class ChessBoard {

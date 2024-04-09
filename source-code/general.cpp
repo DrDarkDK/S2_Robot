@@ -3,6 +3,15 @@
 #include "functionality.h"
 #include "visuals.h"
 
+bool verifyPosition(std::vector<int> position) { //Check if a position is inside an 8x8 grid.
+    if (position[0] < 8 && position[1] < 8) {
+        if (position[0] >= 0 && position[1] >= 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
 std::vector<int> getCursorPosition(sf::RenderWindow &window) {
     sf::Vector2i cursorPos = sf::Mouse::getPosition(window);
     int clickedX = cursorPos.x / (800 / 8);
@@ -32,6 +41,7 @@ void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vect
     pieces.push_back(addChessPiece(board, piece, position));
 } 
 
+//Convert a set of coordinates into the relevant position on the chessboard (for visualisation purposes).
 std::vector<float> coordsToPosition(std::vector<float> position) {
     float x = position[0]+2;
     float y = position[1]+1.5;
@@ -92,7 +102,6 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
         
         calcPosition = coordsToPosition({oldPos[1] * squareSize + squareSize / 2.1f, (.5f + float(oldPos[0])) * squareSize});
 
-        // Black pawns
         sprites.emplace_back(pieces[i]->getTexture());
         sprites.back().setScale(scale, scale);
         sf::Vector2f centeredPosition = sf::Vector2f(calcPosition[0], calcPosition[1]);
