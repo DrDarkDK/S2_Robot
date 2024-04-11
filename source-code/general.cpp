@@ -24,8 +24,8 @@ std::vector<int> getCursorPosition(sf::RenderWindow &window) {
       return {clickedX, clickedY};
 }
 
-//createPiece(type, isWhite, texture, position, &board, &pieces)
-void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board, std::vector<std::shared_ptr<ChessPiece>>& pieces) {
+//createPiece(type, isWhite, texture, position, &board)
+void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board) {
     enum Color {
             WHITE,
             BLACK
@@ -38,7 +38,7 @@ void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vect
     }
 
     ChessPiece piece(tag, (isWhite ? ChessPiece::WHITE : ChessPiece::BLACK), texture);
-    pieces.push_back(addChessPiece(board, piece, position));
+    addChessPiece(board, piece, position);
 } 
 
 //Convert a set of coordinates into the relevant position on the chessboard (for visualisation purposes).
@@ -49,13 +49,12 @@ std::vector<float> coordsToPosition(std::vector<float> position) {
     return {x, y};
 }
 
-std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position) {
+void addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position) {
     if (!verifyPosition(position)) {
         std::cout << "Error! addChessPiece() expected coordinate lower than or equal to 8." << std::endl;
     }
     std::shared_ptr<ChessPiece> piecePtr = std::make_shared<ChessPiece>(std::move(piece));
     board.placePiece(piecePtr, position);
-    return piecePtr;
 }
 
 void printGrid(const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& array) {
@@ -78,7 +77,7 @@ float calculateScaleFactor(const sf::Texture& texture, int squareSize) {
     return scale; // Assuming the texture is square
 }
 
-void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>>& pieces) {
+void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, ChessBoard& board) {
     // Calculate scale factors based on the first texture loaded
     float scale = 0.5;
 
@@ -96,13 +95,13 @@ void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vec
     };
 
     // Initialize and place black pieces
-    for (int i = 0; i < pieces.size(); ++i) {
+    for (int i = 0; i < board.getPieces().size(); ++i) {
         std::vector<float> calcPosition;
-        std::vector<int> oldPos = pieces[i]->getPosition();
+        std::vector<int> oldPos = board.getPieces()[i]->getPosition();
         
         calcPosition = coordsToPosition({oldPos[1] * squareSize + squareSize / 2.1f, (.5f + float(oldPos[0])) * squareSize});
 
-        sprites.emplace_back(pieces[i]->getTexture());
+        sprites.emplace_back(board.getPieces()[i]->getTexture());
         sprites.back().setScale(scale, scale);
         sf::Vector2f centeredPosition = sf::Vector2f(calcPosition[0], calcPosition[1]);
         sprites.back().setOrigin(sprites.back().getLocalBounds().width / 2.0f, sprites.back().getLocalBounds().height / 2.0f);

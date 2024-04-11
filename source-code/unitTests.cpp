@@ -40,7 +40,7 @@ void UnitTest::finalizeTests() {
         std::vector<std::shared_ptr<ChessPiece>> testPieces;
         ChessPiece testPawn("PAW", ChessPiece::BLACK, PieceTexture::blackPawn); //Pawn
         ChessBoard testBoard;
-        createPiece("testPawn", false, PieceTexture::blackPawn, {0,0}, testBoard, testPieces);
+        createPiece("testPawn", false, PieceTexture::blackPawn, {0,0}, testBoard);
         
         if (testBoard.getPosition({0,0})->getType() == "BLACK") {
             _failedTests.push_back(5);

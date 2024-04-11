@@ -59,6 +59,8 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
     
     this->grid[position[0]][position[1]] = chessPiece; //Move the piece to new position.
     chessPiece->setPosition(position);
+
+    this->pieces.push_back(chessPiece);
 }
 
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
@@ -79,4 +81,8 @@ void ChessBoard::wipePosition(std::vector<int> position) {
     } else {
         std::cout << "Error! wipePosition() expected coordinate lower than or equal to 8." << std::endl;
     }
+}
+
+std::vector<std::shared_ptr<ChessPiece>> ChessBoard::getPieces() {
+    return this->pieces;
 }

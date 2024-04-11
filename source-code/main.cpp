@@ -20,34 +20,33 @@ int main() {
 
     initializeTextures(); 
 
-    std::vector<std::shared_ptr<ChessPiece>> pieces; //Array containing all chess pieces.
     ChessBoard board; //The chessboard.
 
     for (int i = 0; i < 8; i++) { //Add pawns to the board.
-        createPiece("Pawn", true, PieceTexture::whitePawn, {6, i}, board, pieces);
+        createPiece("Pawn", true, PieceTexture::whitePawn, {6, i}, board);
         //pieces.push_back(addChessPiece(board, pawnW, {6, i}));
 
-        createPiece("Pawn", false, PieceTexture::blackPawn, {1, i}, board, pieces);
+        createPiece("Pawn", false, PieceTexture::blackPawn, {1, i}, board);
     }
 
-    createPiece("Rook", false, PieceTexture::blackRook, {0, 0}, board, pieces);
-    createPiece("Rook", false, PieceTexture::blackRook, {0, 7}, board, pieces);
-    createPiece("Knights", false, PieceTexture::blackKnight, {0, 1}, board, pieces);
-    createPiece("Knights", false, PieceTexture::blackKnight, {0, 6}, board, pieces);
-    createPiece("Bishop", false, PieceTexture::blackBishop, {0, 2}, board, pieces);
-    createPiece("Bishop", false, PieceTexture::blackBishop, {0, 5}, board, pieces);
-    createPiece("Queen", false, PieceTexture::blackQueen, {0, 3}, board, pieces);
-    createPiece("King", false, PieceTexture::blackKing, {0, 4}, board, pieces);
+    createPiece("Rook", false, PieceTexture::blackRook, {0, 0}, board);
+    createPiece("Rook", false, PieceTexture::blackRook, {0, 7}, board);
+    createPiece("Knights", false, PieceTexture::blackKnight, {0, 1}, board);
+    createPiece("Knights", false, PieceTexture::blackKnight, {0, 6}, board);
+    createPiece("Bishop", false, PieceTexture::blackBishop, {0, 2}, board);
+    createPiece("Bishop", false, PieceTexture::blackBishop, {0, 5}, board);
+    createPiece("Queen", false, PieceTexture::blackQueen, {0, 3}, board);
+    createPiece("King", false, PieceTexture::blackKing, {0, 4}, board);
 
 
-    createPiece("Rook", true, PieceTexture::whiteRook, {7, 0}, board, pieces);
-    createPiece("Rook", true, PieceTexture::whiteRook, {7, 7}, board, pieces);
-    createPiece("Knights", true, PieceTexture::whiteKnight, {7, 1}, board, pieces);
-    createPiece("Knights", true, PieceTexture::whiteKnight, {7, 6}, board, pieces);
-    createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 2}, board, pieces);
-    createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 5}, board, pieces);
-    createPiece("Queen", false, PieceTexture::whiteQueen, {7, 3}, board, pieces);
-    createPiece("King", true, PieceTexture::whiteKing, {7, 4}, board, pieces);
+    createPiece("Rook", true, PieceTexture::whiteRook, {7, 0}, board);
+    createPiece("Rook", true, PieceTexture::whiteRook, {7, 7}, board);
+    createPiece("Knights", true, PieceTexture::whiteKnight, {7, 1}, board);
+    createPiece("Knights", true, PieceTexture::whiteKnight, {7, 6}, board);
+    createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 2}, board);
+    createPiece("Bishop", true, PieceTexture::whiteBishop, {7, 5}, board);
+    createPiece("Queen", false, PieceTexture::whiteQueen, {7, 3}, board);
+    createPiece("King", true, PieceTexture::whiteKing, {7, 4}, board);
 
     GlobalTest.finalizeTests(); //ALL non-visual code should be above this line, to have the loading-time included in the test.
 
@@ -65,7 +64,7 @@ int main() {
            std::chrono::duration<double> elapsed = current_time - lastTimeCheck;
 
           std::vector<sf::Sprite> pieceSprites;
-          initializePieces(pieceSprites, squareSize, pieces);
+          initializePieces(pieceSprites, squareSize, board);
 
           //Check the window should be closed.
           sf::Event event;

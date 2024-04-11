@@ -8,13 +8,13 @@
 //Get the position (in chessboard formatting, so no more than 8x8) of the cursor compared to the window (not entire screen).
 std::vector<int> getCursorPosition(sf::RenderWindow &window);
 
-//Will handle the creation of a new chesspiece and add it to the "pieces" array.
-void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board, std::vector<std::shared_ptr<ChessPiece>>& pieces);
+//Will handle the creation of a new chesspiece. This is the highest level of the chesspiece creation.
+void createPiece(std::string type, bool isWhite, sf::Texture& texture, std::vector<int> position, ChessBoard& board);
 
 std::vector<float> coordsToPosition(std::vector<float> position);
 
 //Add a chess piece (object) to a chessboard.
-std::shared_ptr<ChessPiece> addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position);
+void addChessPiece(ChessBoard& board, ChessPiece& piece, std::vector<int> position);
 
 // Template function to get the type name of any variable as a string
 template<typename T>
@@ -38,6 +38,6 @@ void printGrid(const std::vector<std::vector<std::shared_ptr<ChessPiece>>>& arra
 float calculateScaleFactor(const sf::Texture& texture, int squareSize);
 
 // Function to initialize chess piece sprites and their positions
-void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, std::vector<std::shared_ptr<ChessPiece>>& pieces);
+void initializePieces(std::vector<sf::Sprite>& sprites, int squareSize, ChessBoard& board);
 
 #endif
