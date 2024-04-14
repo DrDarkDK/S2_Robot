@@ -64,6 +64,21 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
 }
 
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
+    std::shared_ptr<ChessPiece> obj_toPiece = this->getPosition({toPos[1], toPos[0]});
+    if (this->getPosition({toPos[1], toPos[0]}) != nullptr) {
+        std::cout << "Overlap!" << std::endl;
+
+        for (int i = 0; i < this->getPieces().size(); i++) {
+            //std::cout << this->getPieces()[i]->getType() << std::endl;
+            if (this->getPieces()[i]->getPosition()[0] == toPos[0] && this->getPieces()[i]->getPosition()[1] == toPos[1]) {
+                //std::cout << "Found Found! (" << i << ") | " << this->getPieces()[i]->getType() << std::endl;
+                //std::cout << "(" << this->getPieces()[i]->getPosition()[0] << ", " << this->getPieces()[i]->getPosition()[1] << ")" << std::endl;
+                std::cout << "Attempting to delete (" << toPos[0] << ", " << toPos[0] << ") | " << this->getPieces()[i]->getType() << std::endl;;
+                delPiece(i);
+            }
+        }
+    }
+
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
         this->placePiece(this->getPosition(fromPos), toPos);
     } else {
@@ -85,4 +100,8 @@ void ChessBoard::wipePosition(std::vector<int> position) {
 
 std::vector<std::shared_ptr<ChessPiece>> ChessBoard::getPieces() {
     return this->pieces;
+}
+
+void ChessBoard::delPiece(int pieceIndex) {
+    pieces.erase(pieces.begin() + pieceIndex);
 }

@@ -73,6 +73,8 @@ class ChessBoard {
         //Returns an array containing all pointers to all pieces on the board.
         std::vector<std::shared_ptr<ChessPiece>> getPieces();
 
+        void delPiece(int pieceIndex);
+
     private:
         std::vector<std::vector<std::shared_ptr<ChessPiece>>> grid; //A nested array containing the board grid.
         std::vector<std::shared_ptr<ChessPiece>> pieces; //Array containing all chess pieces.

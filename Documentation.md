@@ -45,6 +45,9 @@ The function is similar to `ChessBoard.placePiece()`.
 ```void wipePosition(std::vector<int> position)```
 Take the given position on the chessboard and replace it with a nullptr. Any piece by that spot will be "forgotten" from the board. Use carefully.
 
+```std::vector<std::shared_ptr<ChessPiece>> ChessBoard::getPieces()```
+Returns an array with pointers to all chesspieces on the board.
+
 ```std::vector<std::vector<std::shared_ptr<ChessPiece>>> getGrid()```
 Will return a nested array/vector containing the chessboard in the format: [rows[columns]]. The grid keeps track of all chess pieces related to it.
 
