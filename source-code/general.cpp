@@ -2,6 +2,7 @@
 #include "general.h"
 #include "functionality.h"
 #include "visuals.h"
+#include "robot.h"
 
 bool verifyPosition(std::vector<int> position) { //Check if a position is inside an 8x8 grid.
     if (position[0] < 8 && position[1] < 8) {
