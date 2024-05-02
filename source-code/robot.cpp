@@ -20,4 +20,8 @@ void Gripper::close() {
 }
 
 // -- ROBOT --
-Robot::Robot(Position startPosition, Gripper robotGripper) : _coordinates(startPosition), _gripper(robotGripper) {}
+Robot::Robot() : _gripper(Gripper()), _coordinates(Position()) {
+    // Initialize your Robot's components and state here
+}
+
+Robot* Robot::instance = nullptr;

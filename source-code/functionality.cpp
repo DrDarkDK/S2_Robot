@@ -64,6 +64,7 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
 }
 
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
+    Robot* robot = Robot::getInstance();
     std::shared_ptr<ChessPiece> obj_toPiece = this->getPosition({toPos[1], toPos[0]});
     if (this->getPosition({toPos[1], toPos[0]}) != nullptr) {
         std::cout << "Overlap!" << std::endl;
@@ -81,6 +82,7 @@ void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
 
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
         this->placePiece(this->getPosition(fromPos), toPos);
+        robot->movePiece(fromPos, toPos);
     } else {
         if (this->getPosition({fromPos[1], fromPos[0]}) != nullptr) { //Workaround. Some coordinates got inverted somewhere in the code.
             this->placePiece(this->getPosition({fromPos[1], fromPos[0]}), toPos);

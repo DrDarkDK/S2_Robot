@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include "visuals.h"
+#include "robot.h"
 
 bool verifyPosition(std::vector<int> position);
 
