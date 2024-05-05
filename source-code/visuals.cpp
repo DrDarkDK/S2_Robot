@@ -27,17 +27,17 @@ sf::Texture PieceTexture::loadTexture(const std::string& path) {
 }
 
 void initializeTextures() { //This will ONLY work if your terminal directory is in the S2_Robot path. It can't be in a sub-directory.
-    PieceTexture::blackKing = PieceTexture::loadTexture("source-code/Assets/b_king.png");
-    PieceTexture::blackQueen = PieceTexture::loadTexture("source-code/Assets/b_queen.png");
-    PieceTexture::blackRook = PieceTexture::loadTexture("source-code/Assets/b_rook.png");
-    PieceTexture::blackKnight = PieceTexture::loadTexture("source-code/Assets/b_knight.png");
-    PieceTexture::blackBishop = PieceTexture::loadTexture("source-code/Assets/b_bishop.png");
-    PieceTexture::blackPawn = PieceTexture::loadTexture("source-code/Assets/b_pawn.png");
+    PieceTexture::blackKing = PieceTexture::loadTexture("../source-code/Assets/b_king.png");
+    PieceTexture::blackQueen = PieceTexture::loadTexture("../source-code/Assets/b_queen.png");
+    PieceTexture::blackRook = PieceTexture::loadTexture("../source-code/Assets/b_rook.png");
+    PieceTexture::blackKnight = PieceTexture::loadTexture("../source-code/Assets/b_knight.png");
+    PieceTexture::blackBishop = PieceTexture::loadTexture("../source-code/Assets/b_bishop.png");
+    PieceTexture::blackPawn = PieceTexture::loadTexture("../source-code/Assets/b_pawn.png");
 
-    PieceTexture::whiteKing = PieceTexture::loadTexture("source-code/Assets/w_king.png");
-    PieceTexture::whiteQueen = PieceTexture::loadTexture("source-code/Assets/w_queen.png");
-    PieceTexture::whiteRook = PieceTexture::loadTexture("source-code/Assets/w_rook.png");
-    PieceTexture::whiteKnight = PieceTexture::loadTexture("source-code/Assets/w_knight.png");
-    PieceTexture::whiteBishop = PieceTexture::loadTexture("source-code/Assets/w_bishop.png");
-    PieceTexture::whitePawn = PieceTexture::loadTexture("source-code/Assets/w_pawn.png");
+    PieceTexture::whiteKing = PieceTexture::loadTexture("../source-code/Assets/w_king.png");
+    PieceTexture::whiteQueen = PieceTexture::loadTexture("../source-code/Assets/w_queen.png");
+    PieceTexture::whiteRook = PieceTexture::loadTexture("../source-code/Assets/w_rook.png");
+    PieceTexture::whiteKnight = PieceTexture::loadTexture("../source-code/Assets/w_knight.png");
+    PieceTexture::whiteBishop = PieceTexture::loadTexture("../source-code/Assets/w_bishop.png");
+    PieceTexture::whitePawn = PieceTexture::loadTexture("../source-code/Assets/w_pawn.png");
 }

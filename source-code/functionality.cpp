@@ -2,6 +2,7 @@
 #include <memory>
 #include "functionality.h"
 #include "visuals.h"
+#include "robot.h"
 
 // --- CHESSPIECE CLASS ---
 
@@ -63,9 +64,12 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
     this->pieces.push_back(chessPiece);
 }
 
-void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
+/*void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
     Robot* robot = Robot::getInstance();
     std::shared_ptr<ChessPiece> obj_toPiece = this->getPosition({toPos[1], toPos[0]});
+    
+    
+
     if (this->getPosition({toPos[1], toPos[0]}) != nullptr) {
         std::cout << "Overlap!" << std::endl;
 
@@ -90,6 +94,31 @@ void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
             std::cout << "Error! movePiece expected specificed pointer, and recieved a nullptr." << std::endl;
         }
     }
+}*/
+
+void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
+    Robot* robot = Robot::getInstance();
+    std::shared_ptr<ChessPiece> toPiece = this->getPosition({toPos[1], toPos[0]});
+
+    // Check if the destination position already has a piece
+    if (toPiece != nullptr) {
+        std::cout << "Overlap! Removing piece from position: " << toPos[0] << ", " << toPos[1] << std::endl;
+
+        // Iterate through all pieces to find and remove the overlapping piece
+        for (auto it = this->pieces.begin(); it != this->pieces.end(); ++it) {
+            if ((*it)->getPosition()[0] == toPos[0] && (*it)->getPosition()[1] == toPos[1]) {
+                pieces.erase(it);
+                break; // Exit loop after deleting the piece to avoid iterator invalidation issues
+            }
+        }
+    }
+
+    // Ensure fromPos and toPos are mapped correctly from game logic positions to robot coordinate positions
+    std::vector<double> startPos = robot->getBoardCoordinates(fromPos);
+    std::vector<double> endPos = robot->getBoardCoordinates(toPos);
+
+    // Command the robot to physically move the piece using the start and end positions
+    robot->movePiece(startPos, endPos);
 }
 
 void ChessBoard::wipePosition(std::vector<int> position) {
