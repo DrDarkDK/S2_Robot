@@ -7,6 +7,8 @@
 #include <vector>
 #include <string> 
 
+//NOTE: chessPos to roboPos
+
 class Position {
 public:
     Position(int posX=0, int posY=0, int posZ=0);
@@ -33,9 +35,6 @@ private:
 //Software <-> Robot, code is handled in 'functionality.cpp'.
 class Robot { //Singleton type. Access anywhere through: Robot* robot = Robot::getInstance();
 public:
-    //Return the singleton instance of the Robot class 
-    static Robot* getInstance();
-
     //Initalize the physical coordaintes of each square on the chessboard
 
     void initializeBoardCoordinates(const std::vector<double>& topLeft, const std::vector<double>& topRight,
@@ -54,14 +53,14 @@ public:
     Robot& operator=(const Robot&) = delete;
 
     //Access point to the instance.
-    /*static Robot* getInstance() {
+    static Robot* getInstance() {
         if (instance == nullptr) {  // Create a new instance if one does not exist
-            instance = new Robot();
+            instance = new Robot("127.0.0.1");
         }
         return instance;
     }
     //void movePiece(std::vector<int> fromPos, std::vector<int> toPos) {}; //Each position is an {x,y} coordinate set, with numbers from 1 to 8. so from 1x1 to 8x8. 
-*/
+
 private:
 
     static Robot* instance; //Singleton instance of the Robot class

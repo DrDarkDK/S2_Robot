@@ -27,3 +27,5 @@ debian/files
 debian/debhelper-build-stamp
 debian/tmp
 CMakeSettings.json
+source-code/src/*
+source-code/bin/*

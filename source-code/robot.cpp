@@ -29,14 +29,6 @@ Robot::Robot(const std::string& ip) : rtde_control(ip), rtde_receive(ip) {
     //The constructor remains empty for setting corners later 
 }
 
-//Singleton access method. Creates an instance if none exists and returns the existing instance. 
-Robot* Robot::getInstance(){
-    if(instance == nullptr){
-        instance = new Robot("127.0.0.1"); //IP address of the UR robot
-    }
-    return instance; 
-}
-
 std::vector<double> Robot::getBoardCoordinates(const std::vector<int>& boardPos) {
     if (boardPos[0] < 8 && boardPos[1] < 8 && boardPos[0] >= 0 && boardPos[1] >= 0) {
         return boardCoordinates[boardPos[1]][boardPos[0]]; // Note the index order might need adjusting based on your coordinate setup
