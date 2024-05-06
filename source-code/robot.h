@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <string> 
+#include "assert.h"
 
 //NOTE: chessPos to roboPos
 
@@ -32,13 +33,15 @@ private:
     bool _isOpen;
 };
 
+
 //Software <-> Robot, code is handled in 'functionality.cpp'.
 class Robot { //Singleton type. Access anywhere through: Robot* robot = Robot::getInstance();
 public:
     //Initalize the physical coordaintes of each square on the chessboard
 
-    void initializeBoardCoordinates(const std::vector<double>& topLeft, const std::vector<double>& topRight,
-                                    const std::vector<double>& bottomLeft, const std::vector<double>& bottomRight);
+    
+
+    void initializeBoardCoordinates();
 
     //Move a chess piece from on square to another
     void movePiece(const std::vector<double>& from, const std::vector<double>& to); //moves the piece from one square to another 
@@ -54,8 +57,10 @@ public:
 
     //Access point to the instance.
     static Robot* getInstance() {
+        std::cout << "connecting to robot " << std::endl;
         if (instance == nullptr) {  // Create a new instance if one does not exist
-            instance = new Robot("127.0.0.1");
+            instance = new Robot("192.168.1.53");
+            instance->initializeBoardCoordinates();
         }
         return instance;
     }

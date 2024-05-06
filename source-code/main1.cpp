@@ -19,7 +19,7 @@ int main() {
     std::vector<int> endPos = {4, 3};   // E4
 
     // Move the piece
-    robot->movePiece(startPos, endPos);
+    //robot->movePiece(startPos, endPos);
     
     return 0;
 }

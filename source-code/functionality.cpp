@@ -2,7 +2,6 @@
 #include <memory>
 #include "functionality.h"
 #include "visuals.h"
-#include "robot.h"
 
 // --- CHESSPIECE CLASS ---
 
@@ -64,7 +63,9 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
     this->pieces.push_back(chessPiece);
 }
 
-/*void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
+
+
+void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
     Robot* robot = Robot::getInstance();
     std::shared_ptr<ChessPiece> obj_toPiece = this->getPosition({toPos[1], toPos[0]});
     
@@ -86,7 +87,7 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
 
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
         this->placePiece(this->getPosition(fromPos), toPos);
-        robot->movePiece(fromPos, toPos);
+        //robot->movePiece(fromPos, toPos);
     } else {
         if (this->getPosition({fromPos[1], fromPos[0]}) != nullptr) { //Workaround. Some coordinates got inverted somewhere in the code.
             this->placePiece(this->getPosition({fromPos[1], fromPos[0]}), toPos);
@@ -94,8 +95,18 @@ void ChessBoard::placePiece(const std::shared_ptr<ChessPiece>& chessPiece, std::
             std::cout << "Error! movePiece expected specificed pointer, and recieved a nullptr." << std::endl;
         }
     }
-}*/
 
+    std::cout << "start position made" << std::endl;
+    std::vector<double> startPos = robot->getBoardCoordinates(fromPos);
+    std::cout << "end position made" << std::endl;
+    std::vector<double> endPos = robot->getBoardCoordinates(toPos);
+
+    
+    robot->movePiece(startPos, endPos);
+
+}
+
+/*
 void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
     Robot* robot = Robot::getInstance();
     std::shared_ptr<ChessPiece> toPiece = this->getPosition({toPos[1], toPos[0]});
@@ -120,6 +131,8 @@ void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
     // Command the robot to physically move the piece using the start and end positions
     robot->movePiece(startPos, endPos);
 }
+*/
+
 
 void ChessBoard::wipePosition(std::vector<int> position) {
     if (verifyPosition(position)) {
