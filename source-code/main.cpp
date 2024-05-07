@@ -6,6 +6,7 @@
 #include <string>
 #include <cctype>
 #include <thread>
+#include "database.h"
 #include "general.h"
 #include "unitTests.h"
 #include "functionality.h"
@@ -17,6 +18,10 @@ void initializeTextures();
 int main() {
     UnitTest GlobalTest("Global Test", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
     GlobalTest.startTests();
+
+    DatabaseManager DB;
+    //DB.connect();
+    //DB.disconnect();
 
     initializeTextures(); 
 
