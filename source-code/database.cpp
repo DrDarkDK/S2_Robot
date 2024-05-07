@@ -2,7 +2,6 @@
 
 #include "database.h"
 
-/*
 
 DatabaseManager::DatabaseManager() {
     _db = QSqlDatabase::addDatabase("QMYSQL");
@@ -13,6 +12,8 @@ DatabaseManager::DatabaseManager() {
     _db.setPassword("password");
 };
 
+
+/*
 void DatabaseManager::connect() {
     _db.open();
 

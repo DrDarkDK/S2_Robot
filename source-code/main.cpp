@@ -20,7 +20,7 @@ int main() {
     GlobalTest.startTests();
 
     DatabaseManager DB;
-    //DB.connect();
+    DB.connect();
     //DB.disconnect();
 
     initializeTextures(); 

@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 # Find the SFML library on the system
 set(SFML_DIR "/usr/lib/x86_64-linux-gnu/cmake/SFML")
-find_package(SFML 2.5 COMPONENTS graphics audio network window REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics audio network window REQUIRED) #SFML
+find_package(Qt5 REQUIRED COMPONENTS Core Quick Sql) #QTCreator
 
 if (POLICY CMP0074)
 	cmake_policy(SET CMP0074 NEW)
@@ -285,7 +286,7 @@ if(${CODE})
 	if(${EXAMPLES})
 		add_executable(robot_example ../visuals.cpp ../unitTests.cpp ../robot.cpp ../main.cpp ../general.cpp ../functionality.cpp)
 		target_include_directories(robot_example PUBLIC ${Boost_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> ${SFML_INCLUDE_DIR})
-		target_link_libraries(robot_example PRIVATE rtde ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} sfml-graphics sfml-audio sfml-network sfml-window)
+		target_link_libraries(robot_example PRIVATE rtde ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} sfml-graphics sfml-audio sfml-network sfml-window Qt5::Core Qt5::Quick Qt5::Sql)
 
 		#add_executable(servoj_example examples/cpp/servoj_example.cpp)
 		#target_include_directories(servoj_example PUBLIC ${Boost_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
