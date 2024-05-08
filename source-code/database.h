@@ -32,16 +32,15 @@ public:
     };
 
     void savePosition(std::vector<double> arg_coordinates) {
-        assert(arg_coordinates.size() == 3);
+        assert(arg_coordinates.size() == 2);
         double coordX = arg_coordinates[0];
         double coordY = arg_coordinates[1];
-        double coordZ = arg_coordinates[2];
 
         QSqlQuery query;
         query.prepare("INSERT INTO movement (posX, posY, posZ) VALUES (:posX, :posY, :posZ)");
         query.bindValue(":posX", coordX);
         query.bindValue(":posY", coordY);
-        query.bindValue(":posZ", coordZ);
+        query.bindValue(":posZ", 0);
 
 
         if (!query.exec()) {

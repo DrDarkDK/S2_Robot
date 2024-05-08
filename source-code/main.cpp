@@ -19,6 +19,11 @@ int main() {
     UnitTest GlobalTest("Global Test", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
     GlobalTest.startTests();
 
+    DatabaseManager DB;
+    DB.connect();
+    DB.savePosition({5, 5});
+    DB.disconnect();
+
     initializeTextures(); 
 
     ChessBoard board; //The chessboard.

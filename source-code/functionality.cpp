@@ -96,10 +96,13 @@ void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
         }
     }
 
+
+
+
     std::cout << "start position made" << std::endl;
-    std::vector<double> startPos = robot->getBoardCoordinates(fromPos);
+    std::vector<double> startPos = robot->getBoardCoordinates(fromPos[0], fromPos[1]);
     std::cout << "end position made" << std::endl;
-    std::vector<double> endPos = robot->getBoardCoordinates(toPos);
+    std::vector<double> endPos = robot->getBoardCoordinates(toPos[0], toPos[1]);
 
     
     robot->movePiece(startPos, endPos);

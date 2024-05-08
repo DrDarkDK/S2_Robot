@@ -7,12 +7,14 @@
 #include <vector>
 #include <string> 
 #include "assert.h"
+#include "database.h"
 
 //NOTE: chessPos to roboPos
 
 class Position {
 public:
-    Position(int posX=0, int posY=0, int posZ=0);
+    //Position(int posX=0, int posY=0, int posZ=0);
+
 
     //Get the coordinates all inside a vector: {x, y, z};
     std::vector<int> getCoordinates();
@@ -43,10 +45,12 @@ public:
 
     void initializeBoardCoordinates();
 
+    std::vector<double> getBoardCoordinates(int col, int row);
     //Move a chess piece from on square to another
     void movePiece(const std::vector<double>& from, const std::vector<double>& to); //moves the piece from one square to another 
 
-    std::vector<double> getBoardCoordinates(const std::vector<int>& boardPos);
+
+
    
     ~Robot(); //Destructor 
 
@@ -66,12 +70,14 @@ public:
     }
     //void movePiece(std::vector<int> fromPos, std::vector<int> toPos) {}; //Each position is an {x,y} coordinate set, with numbers from 1 to 8. so from 1x1 to 8x8. 
 
+   
 private:
 
     static Robot* instance; //Singleton instance of the Robot class
     ur_rtde::RTDEControlInterface rtde_control; //Control interface for sending commands to the robot
     ur_rtde::RTDEReceiveInterface rtde_receive; //Interface to receive data from the robot
-    std::vector<std::vector<std::vector<double>>> boardCoordinates; // 3D vector to store physical coordiantes of each chess square 
+    //std::vector<std::vector<std::vector<double>>> boardCoordinates; // 3D vector to store physical coordiantes of each chess square 
+    std::vector<std::vector<std::vector<double>>> boardCoordinates;
 
     //Private constructor to enforce singleton pattern
     Robot(const std::string& ip);
