@@ -107,6 +107,12 @@ void Robot::movePiece(const std::vector<double>& from, const std::vector<double>
     path.push_back(path_pose2);
     path.push_back(path_pose3);
 
+    //Save position to database.
+    DatabaseManager DB;
+    DB.connect();
+    DB.savePosition({path_pose1[0], path_pose1[1], path_pose1[2]});
+    DB.disconnect();
+
     // Send a linear path with blending in between - (currently uses separate script)
     rtde_control.moveL(path);
 }

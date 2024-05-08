@@ -21,7 +21,6 @@ int main() {
 
     DatabaseManager DB;
     DB.connect();
-    //DB.disconnect();
 
     initializeTextures(); 
 
@@ -143,5 +142,6 @@ int main() {
         }
     }
 
+    DB.disconnect();
     return 0;
 }
