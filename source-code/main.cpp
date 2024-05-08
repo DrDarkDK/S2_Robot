@@ -19,9 +19,6 @@ int main() {
     UnitTest GlobalTest("Global Test", true, 50, true); //UnitTest(name, performTests, µsTarget, debug)
     GlobalTest.startTests();
 
-    DatabaseManager DB;
-    DB.connect();
-
     initializeTextures(); 
 
     ChessBoard board; //The chessboard.
@@ -142,6 +139,5 @@ int main() {
         }
     }
 
-    DB.disconnect();
     return 0;
 }
