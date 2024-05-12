@@ -7,6 +7,8 @@
 #include <QString>
 #include <QDebug>
 #include <assert.h>
+#include <chrono>
+#include <thread>
 
 class DatabaseManager {
 public:
@@ -49,6 +51,29 @@ public:
             qDebug() << "Insert successful!";
         }
     };
+
+    const void saveVoltage(const double& arg_voltage) {
+        assert(arg_voltage >= 0); //Negative voltage
+        std::string time;
+
+        auto now = std::chrono::system_clock::now();
+        std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+        std::tm* now_tm = std::localtime(&now_time);
+
+        time = std::put_time(now_tm, "%d/%m - %H:%M");
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO voltage_data (timestamp, voltage) VALUES (:time, :voltage)");
+        query.bindValue(":time", time);
+        query.bindValue(":voltage", arg_voltage);
+
+
+        if (!query.exec()) {
+            qDebug() << "Error inserting into the table:" << query.lastError().text();
+        } else {
+            qDebug() << "Insert successful!";
+        }
+    }
 
 private:
     QSqlDatabase _db;

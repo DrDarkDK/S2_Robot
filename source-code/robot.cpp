@@ -12,11 +12,19 @@
 
 // -- GRIPPER --
 void Gripper::open() {
-    //TBA
+    SerialPort sp("/dev/ttyUSB0", B9600);
+    if (sp.isOpen()) {
+        sp.writeSerial("OPEN\n", 6);
+        usleep(1000000);  // Wait for transmission to complete
+    }
 }
 
 void Gripper::close() {
-    //TBA
+    SerialPort sp("/dev/ttyUSB0", B9600);
+    if (sp.isOpen()) {
+        sp.writeSerial("CLOSE\n", 6);
+        usleep(1000000);  // Wait for transmission to complete
+    }
 }
 
 // -- ROBOT --

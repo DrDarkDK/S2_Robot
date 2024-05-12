@@ -8,6 +8,7 @@
 #include <string> 
 #include "assert.h"
 #include "database.h"
+#include "SerialPort.h"
 
 //NOTE: chessPos to roboPos
 
