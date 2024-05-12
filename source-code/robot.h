@@ -63,7 +63,7 @@ public:
     static Robot* getInstance() {
         std::cout << "connecting to robot " << std::endl;
         if (instance == nullptr) {  // Create a new instance if one does not exist
-            instance = new Robot("192.168.1.53");
+            instance = new Robot("192.168.1.54");
             instance->initializeBoardCoordinates();
         }
         return instance;

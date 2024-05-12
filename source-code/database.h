@@ -17,7 +17,7 @@ public:
         _db.setHostName("localhost");
         _db.setDatabaseName("RobotDB");
         _db.setUserName("root");
-        _db.setPassword("password");
+        _db.setPassword("#Superdeadcasp2004");
 
         _db.open();
 
