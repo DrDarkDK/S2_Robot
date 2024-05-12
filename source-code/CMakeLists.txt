@@ -286,7 +286,7 @@ if(${CODE})
 	endif()
 
 	if(${EXAMPLES})
-		add_executable(robot_example ../visuals.cpp ../unitTests.cpp ../robot.cpp ../main.cpp ../general.cpp ../functionality.cpp)
+		add_executable(robot_example ../visuals.cpp ../unitTests.cpp ../robot.cpp ../main.cpp ../general.cpp ../functionality.cpp ../SerialPort.cpp)
 		target_include_directories(robot_example PUBLIC ${Boost_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> ${SFML_INCLUDE_DIR} ${Qt5Core_INCLUDE_DIRS})
 		target_link_libraries(robot_example PRIVATE rtde ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY} sfml-graphics sfml-audio sfml-network sfml-window Qt5::Core Qt5::Quick Qt5::Sql)
 

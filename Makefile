@@ -1,9 +1,9 @@
-MCU=atmega32
+MCU=atmega644p
 F_CPU=8000000UL
 CC=avr-gcc
 OBJCOPY=avr-objcopy
 CFLAGS=-mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os
-TARGET=main
+TARGET=open
 PROGRAMMER=usbasp # Change this to your programmer type
 
 all: $(TARGET).hex
@@ -24,4 +24,3 @@ clean:
 	rm -f $(TARGET).hex $(TARGET).elf $(TARGET).o
 
 .PHONY: all clean flash
-

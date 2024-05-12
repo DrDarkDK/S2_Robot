@@ -17,8 +17,8 @@ ALTER TABLE movement MODIFY posX double NOT NULL;
 ALTER TABLE movement MODIFY posY double NOT NULL;
 ALTER TABLE movement MODIFY posZ double NOT NULL;
 
-CREATE TABLE voltage_data (
+/*CREATE TABLE voltage_data (
     voltage_id int not null AUTO_INCREMENT,
     timestamp VARCHAR(255) not null,
-    voltage double not null,
-);
+    voltage double not null
+);*/

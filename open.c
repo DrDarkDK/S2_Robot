@@ -58,7 +58,7 @@ ISR(USART1_RX_vect) {
              PORTD |= (1 << PD5);  // Turn on the motor
              PORTC &= ~(1 << PC2); // Set direction
              motorStartTime = millis(); // Record start time
-             motorRunDuration = 3000;
+             motorRunDuration = 1000;
              motorActive = 1; // Set motor as active
              USART_putstring("Loosening the grip.\r\n");
              
@@ -67,7 +67,7 @@ ISR(USART1_RX_vect) {
             PORTD |= (1 << PD5);  
             PORTC |= (1 << PC2);  
             motorStartTime = millis(); 
-            motorRunDuration = 6000;
+            motorRunDuration = 1000;
             motorActive = 1; 
             USART_putstring("Gripping!!!\r\n");
         }

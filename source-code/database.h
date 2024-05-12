@@ -52,7 +52,7 @@ public:
         }
     };
 
-    const void saveVoltage(const double& arg_voltage) {
+    /*const void saveVoltage(const double& arg_voltage) {
         assert(arg_voltage >= 0); //Negative voltage
         std::string time;
 
@@ -73,7 +73,7 @@ public:
         } else {
             qDebug() << "Insert successful!";
         }
-    }
+    }*/
 
 private:
     QSqlDatabase _db;

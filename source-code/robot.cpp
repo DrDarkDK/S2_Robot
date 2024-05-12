@@ -1,5 +1,7 @@
 #include "robot.h"
-
+#include "SerialPort.h"
+#include <chrono>
+#include <thread>
 
 // --POSITION--
 
@@ -14,7 +16,7 @@
 void Gripper::open() {
     SerialPort sp("/dev/ttyUSB0", B9600);
     if (sp.isOpen()) {
-        sp.writeSerial("OPEN\n", 6);
+        sp.writeSerial("OPEN\n", 5);
         usleep(1000000);  // Wait for transmission to complete
     }
 }
@@ -156,14 +158,15 @@ void Robot::movePiece(const std::vector<double>& from, const std::vector<double>
     /*rtde_control.moveL({startPos[0], startPos[1], startPos[2] + 0.15}, 0.25, 0.5); // Lift the piece
     rtde_control.moveL({endPos[0], endPos[1], startPos[2]}, 0.25, 0.5); // Move to new position and lower the piece*/
     
+    Gripper Grip;
     
     
 
     double velocity = 0.02;
     double acceleration = 0.02;
     double blend_1 = 0.0;
-    std::vector<double> path_pose1 = {from[0], from[1], 0.21, -0.001, 3.12, 0.04, velocity, acceleration, blend_1};
-    std::vector<double> path_pose2 = {to[0], to[1], 0.21, -0.001, 3.12, 0.04, velocity, acceleration, blend_1};
+    std::vector<double> path_pose1 = {from[0], from[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend_1};
+    std::vector<double> path_pose2 = {to[0], to[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend_1};
   
 
     std::vector<std::vector<double>> path;
@@ -178,7 +181,16 @@ void Robot::movePiece(const std::vector<double>& from, const std::vector<double>
     DB.disconnect();
 
     // Send a linear path with blending in between - (currently uses separate script)
-    rtde_control.moveL(path);
+    //rtde_control.moveL(path[1]);
+    
+    //Grip.close();
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    //Grip.open();
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    //rtde_control.moveL(path[2]);
+    //Grip.close();
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    //Grip.open();
 }
 
 // Destructor to ensure clean up
