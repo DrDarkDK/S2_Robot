@@ -183,14 +183,14 @@ void Robot::movePiece(const std::vector<double>& from, const std::vector<double>
     // Send a linear path with blending in between - (currently uses separate script)
     //rtde_control.moveL(path[1]);
     
-    //Grip.close();
+    Grip.close();
     std::this_thread::sleep_for(std::chrono::seconds(3));
-    //Grip.open();
+    Grip.open();
     std::this_thread::sleep_for(std::chrono::seconds(3));
     //rtde_control.moveL(path[2]);
-    //Grip.close();
+    Grip.close();
     std::this_thread::sleep_for(std::chrono::seconds(3));
-    //Grip.open();
+    Grip.open();
 }
 
 // Destructor to ensure clean up
