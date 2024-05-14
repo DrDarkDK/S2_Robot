@@ -111,7 +111,7 @@ int main(void) {
     DB.connect();
 
     static unsigned long lastRead = 0;
-        if (millis() - lastRead >= 1000) {
+        if (millis() - lastRead >= 750) {
             PORTB ^= (1 << PB1); // LED for testing
             lastRead = millis();
             adc_value = ADC_Read(0);
