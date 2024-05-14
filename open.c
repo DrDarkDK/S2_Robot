@@ -6,6 +6,7 @@
 #include <string.h> // For strcmp function
 #include "motorfile.h" // Motor control
 #include "millis.h" // Timing function 
+#include "source-code/database.h"
 
 #define BAUD 9600
 #define MYUBRR F_CPU/16/BAUD-1
@@ -105,6 +106,10 @@ int main(void) {
             PORTD &= ~(1 << PD5); // Turn off the motor
             motorActive = 0; // Clear the active flag
     }
+
+    Database DB;
+    DB.connect();
+
     static unsigned long lastRead = 0;
         if (millis() - lastRead >= 1000) {
             PORTB ^= (1 << PB1); // LED for testing
@@ -114,5 +119,7 @@ int main(void) {
             sprintf(buffer, "Current: %lu mA\r\n", current_mA);  // Long unsigned specifier
             USART_putstring(buffer);
         }
+
+    DB.disconnect();
 }
 }
