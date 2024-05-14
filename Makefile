@@ -1,22 +1,37 @@
-MCU=atmega644p
-MCU=atmega644p
-F_CPU=8000000UL
+# Compiler and Linker
+CXX=g++
 CC=avr-gcc
 OBJCOPY=avr-objcopy
-CFLAGS=-mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os
+
+# MCU details
+MCU=atmega644p
+F_CPU=8000000UL
+CFLAGS_AVR=-mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os
+
+# Target
 TARGET=open
-PROGRAMMER=usbasp # Change this to your programmer type
 
-all: $(TARGET).hex
+# Programmer
+PROGRAMMER=usbasp
 
-$(TARGET).hex: $(TARGET).elf
-	$(OBJCOPY) -O ihex -R .eeprom $< $@
+# Qt and MySQL paths
+QT_INC=/usr/include/qt
+QT_LIB=/usr/lib/x86_64-linux-gnu
+MYSQL_INC=/usr/include/mysql
+MYSQL_LIB=/usr/lib/x86_64-linux-gnu
+
+# Compiler flags
+CXXFLAGS=-I$(QT_INC) -I$(MYSQL_INC)
+LDFLAGS=-L$(QT_LIB) -L$(MYSQL_LIB) -lQt5Core -lQt5Gui -lQt5Widgets -lmysqlclient
+
+# Rules
+all: $(TARGET).elf
 
 $(TARGET).elf: $(TARGET).o
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $<
 
-$(TARGET).o: $(TARGET).c
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(TARGET).o: $(TARGET).cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 flash: $(TARGET).hex
 	sudo avrdude -c $(PROGRAMMER) -p $(MCU) -U flash:w:$<
