@@ -5,7 +5,6 @@ CC=avr-gcc
 OBJCOPY=avr-objcopy
 CFLAGS=-mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os
 TARGET=open
-TARGET=open
 PROGRAMMER=usbasp # Change this to your programmer type
 
 all: $(TARGET).hex
