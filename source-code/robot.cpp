@@ -56,10 +56,14 @@ void Robot::initializeBoardCoordinates() {
             double rotatedX = x * cosTheta - y * sinTheta;
             double rotatedY = x * sinTheta + y * cosTheta;
 
-            boardCoordinates[row][col] = {rotatedX, rotatedY};
+            boardCoordinates[row][col] = {rotatedX, y};
         }
     }
+
+
 }
+
+
 
 std::vector<double> Robot::getBoardCoordinates(int col, int row) {
     assert(col >= 0 && col < 8 && row >= 0 && row < 8);
@@ -69,32 +73,41 @@ std::vector<double> Robot::getBoardCoordinates(int col, int row) {
 void Robot::movePiece(const std::vector<double>& from, const std::vector<double>& to) {
     std::cout << "start pos found " << std::endl; 
     std::cout <<  "x: " << from[0] << ", y: " << from[1] << std::endl; 
-    std::vector<double> startPos = getBoardCoordinates(from[0], 7 - from[1]);
+    std::vector<double> startPos = getBoardCoordinates(from[0], from[1]);
     std::cout << "end pos found" << std::endl;
     std::cout <<  "x: " << to[0] << ", y: " << to[1] << std::endl; 
-    std::vector<double> endPos = getBoardCoordinates(to[0], 7 - to[1]);
+    std::vector<double> endPos = getBoardCoordinates(to[0], to[1]);
 
     Gripper grip;
     //grip.close();
-    grip.close();
-    grip.open();
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    //grip.open();
 
-    double velocity = 0.02;
-    double acceleration = 0.02;
+    double velocity = 0.05;
+    double acceleration = 0.05;
     double blend = 0.0;
 
     std::vector<double> path_pose1 = {from[0], from[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> path_pose2 = {from[0], from[1], 0.10, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose2 = {from[0], from[1], 0.0365, -0.001, 3.12, 0.04, velocity, acceleration, blend};
     std::vector<double> path_pose3 = {to[0], to[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> path_pose4 = {to[0], to[1], 0.10, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose4 = {to[0], to[1], 0.0365, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> center =  {0.2, -0.5, 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
 
-    std::vector<std::vector<double>> path = {path_pose1,  path_pose2, path_pose1, path_pose3, path_pose4, path_pose3};
+    std::vector<std::vector<double>> path1 = {path_pose1,  path_pose2};
+    std::vector<std::vector<double>> path2 = {path_pose1, path_pose3, path_pose4};
+    std::vector<std::vector<double>> path3 = {path_pose3, center};
 
-
-
-    //rtde_control.moveL(path);
-    //grip.close();
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+    grip.open();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    rtde_control.moveL(path1);
+    grip.close();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    rtde_control.moveL(path2);
+    grip.open();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    rtde_control.moveL(path3);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    grip.close();
     //rtde_control.moveL(path_pose2);
     //grip.open();
 }
