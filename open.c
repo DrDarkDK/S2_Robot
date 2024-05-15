@@ -6,7 +6,7 @@
 #include <string.h> // For strcmp function
 #include "motorfile.h" // Motor control
 #include "millis.h" // Timing function 
-#include "source-code/database.h"
+//#include "source-code/database.h"
 
 #define BAUD 9600
 #define MYUBRR F_CPU/16/BAUD-1
@@ -72,7 +72,7 @@ ISR(USART1_RX_vect) {
              PORTD |= (1 << PD5);  // Turn on the motor
              PORTC &= ~(1 << PC2); // Set direction
              motorStartTime = millis(); // Record start time
-             motorRunDuration = 1700;
+             motorRunDuration = 170;
              motorActive = 1; // Set motor as active
              USART_putstring("Loosening the grip.\r\n");
              
@@ -81,7 +81,7 @@ ISR(USART1_RX_vect) {
             PORTD |= (1 << PD5);  
             PORTC |= (1 << PC2);  
             motorStartTime = millis(); 
-            motorRunDuration = 2500;
+            motorRunDuration = 170;
             motorActive = 1; 
             USART_putstring("Gripping!!!\r\n");
         }
@@ -107,8 +107,8 @@ int main(void) {
             motorActive = 0; // Clear the active flag
     }
 
-    Database DB;
-    DB.connect();
+    //Database DB;
+    //DB.connect();
 
     static unsigned long lastRead = 0;
         if (millis() - lastRead >= 1000) {
@@ -120,6 +120,6 @@ int main(void) {
             USART_putstring(buffer);
         }
 
-    DB.disconnect();
+    //DB.disconnect();
 }
 }

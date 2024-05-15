@@ -314,9 +314,9 @@ if(${CODE})
 		#target_include_directories(move_async_example PUBLIC ${Boost_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
 		#target_link_libraries(move_async_example PRIVATE rtde ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY})
 	
-		#add_executable(move_path_async_example examples/cpp/move_path_async_example.cpp)
-		#target_include_directories(move_path_async_example PUBLIC ${Boost_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
-		#target_link_libraries(move_path_async_example PRIVATE rtde ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY})
+		add_executable(move_path_async_example examples/cpp/move_path_async_example.cpp)
+		target_include_directories(move_path_async_example PUBLIC ${Boost_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
+		target_link_libraries(move_path_async_example PRIVATE rtde ${Boost_SYSTEM_LIBRARY} ${Boost_THREAD_LIBRARY})
 
 		#add_executable(robotiq_gripper_example examples/cpp/robotiq_gripper_example.cpp)
 		#target_include_directories(robotiq_gripper_example PUBLIC ${Boost_INCLUDE_DIRS} $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
@@ -344,6 +344,11 @@ if(${CODE})
 				PROPERTIES
 				RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin"
 				)
+			
+		set_target_properties(move_path_async_example
+				PROPERTIES
+				RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin"
+				)
 	endif()
 
 	generate_export_header(rtde EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/ur_rtde/rtde_export.h)
@@ -358,7 +363,7 @@ if(${CODE})
 		#add_executable(ur_rtde::movej_path_with_blend_example ALIAS movej_path_with_blend_example)
 		#add_executable(ur_rtde::io_example ALIAS io_example)
 		#add_executable(ur_rtde::move_async_example ALIAS move_async_example)
-		#add_executable(ur_rtde::move_path_async_example ALIAS move_path_async_example)
+		add_executable(ur_rtde::move_path_async_example ALIAS move_path_async_example)
 		#add_executable(ur_rtde::robotiq_gripper_example ALIAS robotiq_gripper_example)
 		#add_executable(ur_rtde::move_until_contact_example ALIAS move_until_contact_example)
 		#add_executable(ur_rtde::record_data_example ALIAS record_data_example)

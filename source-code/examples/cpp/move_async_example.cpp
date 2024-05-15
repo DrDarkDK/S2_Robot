@@ -9,8 +9,8 @@ using namespace std::chrono;
 
 int main(int argc, char* argv[])
 {
-  RTDEControlInterface rtde_control("127.0.0.1");
-  RTDEReceiveInterface rtde_receive("127.0.0.1");
+  RTDEControlInterface rtde_control("192.168.1.54");
+  RTDEReceiveInterface rtde_receive("192.168.1.54");
   std::vector<double> init_q = rtde_receive.getActualQ();
 
   // Target in the robot base
