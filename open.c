@@ -111,11 +111,11 @@ int main(void) {
     //DB.connect();
 
     static unsigned long lastRead = 0;
-        if (millis() - lastRead >= 1000) {
+        if (millis() - lastRead >= 750) {
             PORTB ^= (1 << PB1); // LED for testing
             lastRead = millis();
             adc_value = ADC_Read(0);
-            current_mA = (uint32_t)adc_value * 5000 / 1023 / 25;  // Current calculation: 5 volts, shunt resisotr 25 milliohms
+            current_mA = ((uint32_t)adc_value * 5000 / 1023) / 25;  // Current calculation: 5 volts, shunt resisotr 25 milliohms
             sprintf(buffer, "Current: %lu mA\r\n", current_mA);  // Long unsigned specifier
             USART_putstring(buffer);
         }
