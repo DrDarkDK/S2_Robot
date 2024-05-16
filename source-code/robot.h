@@ -72,6 +72,7 @@ public:
     }
     //void movePiece(std::vector<int> fromPos, std::vector<int> toPos) {}; //Each position is an {x,y} coordinate set, with numbers from 1 to 8. so from 1x1 to 8x8. 
 
+    void handleOverlap(const std::vector<double>& from, const std::vector<double>& to);
    
 private:
 

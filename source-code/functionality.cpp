@@ -83,6 +83,11 @@ void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
                 delPiece(i);
             }
         }
+
+        
+        std::vector<double> startPos = robot->getBoardCoordinates(fromPos[0], fromPos[1]);
+        std::vector<double> endPos = robot->getBoardCoordinates(toPos[1], toPos[0]);
+        robot->handleOverlap(startPos, endPos);
     }
 
     if (this->getPosition(fromPos) != nullptr) { //Check if nullptr.
@@ -102,7 +107,7 @@ void ChessBoard::movePiece(std::vector<int> fromPos, std::vector<int> toPos) {
     std::cout << "start position made" << std::endl;
     std::vector<double> startPos = robot->getBoardCoordinates(fromPos[0], fromPos[1]);
     std::cout << "end position made" << std::endl;
-    std::vector<double> endPos = robot->getBoardCoordinates(toPos[0], toPos[1]);
+    std::vector<double> endPos = robot->getBoardCoordinates(toPos[1], toPos[0]);
 
     
     robot->movePiece(startPos, endPos);

@@ -112,6 +112,39 @@ void Robot::movePiece(const std::vector<double>& from, const std::vector<double>
     //grip.open();
 }
 
+void Robot::handleOverlap(const std::vector<double>& from, const std::vector<double>& to) {
+    std::cout << "Handling overlap: from (" << from[0] << ", " << from[1] << ") to (" << to[1] << ", " << to[0] << ")" << std::endl;
+
+    double velocity = 0.05;
+    double acceleration = 0.05;
+    double blend = 0.0;
+
+
+    std::vector<double> path_pose3 = {to[0], to[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose4 = {to[0], to[1], 0.0365, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> center =  {0.2, -0.5, 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> drop_point =  {0.2, -0.7, 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+
+
+    std::vector<std::vector<double>> path1 = {path_pose3,  path_pose4};
+    std::vector<std::vector<double>> drop = {path_pose3,  drop_point};
+    std::vector<std::vector<double>> reset = {path_pose3, center};
+
+    Gripper grip;
+    
+    grip.open();
+    rtde_control.moveL(path1);
+    grip.close();
+    rtde_control.moveL(drop);
+    grip.open();
+    rtde_control.moveL(reset);
+    grip.close();
+  
+}
+
+
 Robot::~Robot() {
     rtde_control.stopScript();
 }
+
+
