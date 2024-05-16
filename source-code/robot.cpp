@@ -34,9 +34,9 @@ Robot::Robot(const std::string& ip) : rtde_control(ip), rtde_receive(ip) {
 
 void Robot::initializeBoardCoordinates() {
     // Define the corner coordinates
-    std::vector<double> bottomLeft = {0.2, -0.35};
-    std::vector<double> bottomRight = {-0.2, -0.35};
-    std::vector<double> topLeft = {0.2, -0.75};
+    std::vector<double> bottomLeft = {0.215, -0.335};
+    std::vector<double> bottomRight = {-0.215, -0.335};
+    std::vector<double> topLeft = {0.215, -0.765};
     std::vector<double> topRight ={0.071, -0.754};
 
     boardCoordinates.resize(8, std::vector<std::vector<double>>(8));
@@ -56,7 +56,7 @@ void Robot::initializeBoardCoordinates() {
             double rotatedX = x * cosTheta - y * sinTheta;
             double rotatedY = x * sinTheta + y * cosTheta;
 
-            boardCoordinates[row][col] = {rotatedX, y};
+            boardCoordinates[row][col] = {rotatedX, rotatedY};
         }
     }
 
@@ -83,15 +83,15 @@ void Robot::movePiece(const std::vector<double>& from, const std::vector<double>
     std::this_thread::sleep_for(std::chrono::seconds(2));
     //grip.open();
 
-    double velocity = 0.05;
-    double acceleration = 0.05;
+    double velocity = 0.08;
+    double acceleration = 0.08;
     double blend = 0.0;
 
-    std::vector<double> path_pose1 = {from[0], from[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> path_pose2 = {from[0], from[1], 0.0365, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> path_pose3 = {to[0], to[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> path_pose4 = {to[0], to[1], 0.0365, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> center =  {0.2, -0.5, 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose1 = {from[0], from[1], 0.18, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose2 = {from[0], from[1], 0.0385, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose3 = {to[0], to[1], 0.18, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose4 = {to[0], to[1], 0.0385, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> center =  {0.2, -0.5, 0.18, -0.001, 3.12, 0.04, velocity, acceleration, blend};
 
     std::vector<std::vector<double>> path1 = {path_pose1,  path_pose2};
     std::vector<std::vector<double>> path2 = {path_pose1, path_pose3, path_pose4};
@@ -108,22 +108,21 @@ void Robot::movePiece(const std::vector<double>& from, const std::vector<double>
     rtde_control.moveL(path3);
     std::this_thread::sleep_for(std::chrono::seconds(1));
     grip.close();
-    //rtde_control.moveL(path_pose2);
-    //grip.open();
+   
 }
 
 void Robot::handleOverlap(const std::vector<double>& from, const std::vector<double>& to) {
     std::cout << "Handling overlap: from (" << from[0] << ", " << from[1] << ") to (" << to[1] << ", " << to[0] << ")" << std::endl;
 
-    double velocity = 0.05;
-    double acceleration = 0.05;
+    double velocity = 0.08;
+    double acceleration = 0.08;
     double blend = 0.0;
 
 
     std::vector<double> path_pose3 = {to[0], to[1], 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> path_pose4 = {to[0], to[1], 0.0365, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> center =  {0.2, -0.5, 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
-    std::vector<double> drop_point =  {0.2, -0.7, 0.25, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> path_pose4 = {to[0], to[1], 0.0385, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> center =  {0.2, -0.5, 0.18, -0.001, 3.12, 0.04, velocity, acceleration, blend};
+    std::vector<double> drop_point =  {-0.13, -0.531, 0.28, -0.001, 3.12, 0.04, velocity, acceleration, blend};
 
 
     std::vector<std::vector<double>> path1 = {path_pose3,  path_pose4};
